@@ -1,0 +1,25 @@
+:root {
+  --white: #FFFFFF;
+  --primary: #1ED760;
+  --secondary: #A40F0F;
+  --black: #121212;
+  --gray: #252525;
+  --light-gray: #303030;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  background-color: var(--black);
+  color: var(--white);
+}
+
+a {
+  color: unset;
+  text-decoration: none;
+}

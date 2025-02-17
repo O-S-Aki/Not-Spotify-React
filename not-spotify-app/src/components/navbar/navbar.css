@@ -1,0 +1,10 @@
+.navbar {
+  background-color: var(--black);
+}
+
+.navbar_brand-image {
+  height: 2.5rem;
+  border-radius: 50%;
+  filter: brightness(1.4);
+  color: var(--white);
+}
