@@ -4,9 +4,11 @@ import axios from "axios";
 import { useState, useEffect } from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 
-import { Navbar, UserPage } from './components';
+import { Navbar, UserPage, HomePage } from './components';
 
 import { getCredentials, getAuthUrl } from './assets/api-calls/authenticator';
+
+import { getUserProfile } from './assets/api-calls/user';
 
 import './App.css';
 
@@ -44,22 +46,20 @@ const App = () => {
 
   useEffect(() => {
     if (accessToken) {
-      axios.get(`${spotify.BaseUrl}/me`, {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`
-        },
-      })
-      .then((userResponse) => {
-        console.log(userResponse.data);
-        setUser(userResponse.data);
-      })
-      .catch((err) => {
-        console.error("Error fetching user profile:", err)
-      });
+      const fetchUserProfile = async () => {
+        const fetchedUser = await getUserProfile(accessToken);
+
+        if (fetchedUser) {
+          setUser(fetchedUser);
+        }
+      }
+      
+      fetchUserProfile();
     }
   }, [accessToken])
 
   const logout = () => {
+    console.log('logged out');
     setAccessToken(null);
     setUser(null);
     localStorage.removeItem("spotify_access_token");
@@ -69,13 +69,18 @@ const App = () => {
     <div className="app d-flex flex-column">
 
       <header>
-        <Navbar accessToken={accessToken} authUrl={authUrl} logout={logout} user={user} />
+        <Navbar accessToken={accessToken} authUrl={authUrl} user={user} logout={logout} />
       </header>
 
       <div className="main">        
         <Routes>
-          <Route path='/' element={<UserPage />} />
-          <Route path='/user' element={<UserPage />} />
+          <Route path='/' element={<HomePage />} />
+          <Route path='/home' element={<HomePage />} />
+
+          <Route path='/user'>
+            <Route index element={<UserPage accessToken={accessToken} user={user} />} />
+            <Route path='profile' element={<UserPage accessToken={accessToken} user={user} />} />
+          </Route>
         </Routes>
       </div>
 

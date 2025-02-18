@@ -1,19 +1,18 @@
 import axios from "axios";
+import { getCredentials } from "./authenticator";
 
-const BASE_URL = "https://api.spotify.com/v1";
+const baseUrl = getCredentials().BaseUrl;
 
-export const getUserProfile = async (token: string) => {
-  console.log(token);
+export const getUserProfile = async (accessToken: string) => {
   try {
-    const response = await axios.get(`${BASE_URL}/me`, {
+    const response = await axios.get(`${baseUrl}/me`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${accessToken}`
       },
-    });
-
-    console.log(response);
-
+    })
+    
     return response.data;
+
   } catch (error) {
     console.error("Error fetching user profile:", error);
     return null;
