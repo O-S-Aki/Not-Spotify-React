@@ -1,77 +1,84 @@
 import React from 'react';
+import axios from "axios";
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 
 import { Navbar, UserPage } from './components';
 
-import { getUserProfile } from './assets/api-calls/user';
+import { getCredentials, getAuthUrl } from './assets/api-calls/authenticator';
 
 import './App.css';
 
 const App = () => {
-  const CLIENT_ID = "959f29fb894a4d7b834017f37700999d" as string;
-  const CLIENT_SECRET = "e0c8d1c95dc845cfa9d811cb116912f5" as string;
-  const REDIRECT_URI = "http://localhost:3000" as string;
-  const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize" as string;
-  const RESPONSE_TYPE = "token" as string;
+  const spotify = getCredentials();
+  const authUrl = getAuthUrl();
 
-  const AUTH_LINK = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}` as string;
+  // hook for getting and setting the access token.
+  const [accessToken, setAccessToken] = useState<string | null>(null);
 
-  const BASE_URL = "https://api.spotify.com/v1";
+  // hook for getting and setting the currently logged in user.
+  const [user, setUser] = useState<any>(null);
 
-  const [token, setToken] = useState("");
-  const [userProfile, setUserProfile] = useState<{ name: string, image: string | null } | null>(null);
-
+  /* -------------------- 
+  GETTING THE ACCESS TOKEN FROM SPOIFY
+  -------------------- */
   useEffect(() => {
     const hash = window.location.hash;
-    let storedToken = window.localStorage.getItem("token");
+    const params = new URLSearchParams(hash.replace('#', '?'));
+    const token = params.get("access_token");
 
-    if (!storedToken) {
-      window.location.href = AUTH_LINK;
+    if (token) {
+      console.log(`retrieved token: ${token}`);
+
+      setAccessToken(token);
+      localStorage.setItem("spotify_access_token", token);
+      window.history.pushState({}, "", "/");
     }
+    else {
+      console.log(`stored token: ${localStorage.getItem("spotify_access_token")}`)
 
-    if (!storedToken && hash) {
-      const params = new URLSearchParams(hash.substring(1));
-      storedToken = params.get("access_token");
-      window.localStorage.setItem("token", storedToken || "");
-      window.location.hash = "";
+      setAccessToken(localStorage.getItem("spotify_access_token"))
     }
-
-    if (storedToken?.startsWith("access_token=")) {
-      storedToken = storedToken.replace("access_token=", "");
-      window.localStorage.setItem("token", storedToken);
-    }
-
-    setToken(storedToken || "");
-  }, [])
+  }, []);
 
   useEffect(() => {
-    const fetchUserProfile = async() => {
-      if (!token) {
-        return;
-      }
-
-      const profile = await getUserProfile(token);
-      if (profile) {
-          // console.log(profile);
-      }
+    if (accessToken) {
+      axios.get(`${spotify.BaseUrl}/me`, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        },
+      })
+      .then((userResponse) => {
+        console.log(userResponse.data);
+        setUser(userResponse.data);
+      })
+      .catch((err) => {
+        console.error("Error fetching user profile:", err)
+      });
     }
+  }, [accessToken])
 
-    fetchUserProfile();
-  }, [token])
-
+  const logout = () => {
+    setAccessToken(null);
+    setUser(null);
+    localStorage.removeItem("spotify_access_token");
+  };
 
   return (
-    <div className="main-app">
+    <div className="app d-flex flex-column">
+
       <header>
-        <Navbar baseUrl={BASE_URL} />
+        <Navbar accessToken={accessToken} authUrl={authUrl} logout={logout} user={user} />
       </header>
 
-      <Routes>
-        <Route path='/' element={<UserPage />} />
-        <Route path='/user' element={<UserPage />} />
-      </Routes>
+      <div className="main">        
+        <Routes>
+          <Route path='/' element={<UserPage />} />
+          <Route path='/user' element={<UserPage />} />
+        </Routes>
+      </div>
+
     </div>
   );
 }

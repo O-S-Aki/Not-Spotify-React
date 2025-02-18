@@ -1,3 +1,8 @@
-.main-app {
+.app {
   background-color: var(--black);
+}
+
+.main {
+  width: 85%;
+  align-self: center;
 }

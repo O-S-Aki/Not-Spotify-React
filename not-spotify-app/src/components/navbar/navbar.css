@@ -2,9 +2,20 @@
   background-color: var(--black);
 }
 
-.navbar_brand-image {
+.navbar-image {
   height: 2.5rem;
   border-radius: 50%;
-  filter: brightness(1.4);
   color: var(--white);
+  transition: transform 0.3s;
+}
+
+.navbar_profile-image-container {
+  border-radius: 50%;
+  box-shadow: 0 0 1rem rgba(255, 255, 255, 0.3);
+  max-width: fit-content;
+  cursor: pointer;
+}
+
+.navbar_profile-image-container img:hover {
+  transform: scale(1.05);
 }
