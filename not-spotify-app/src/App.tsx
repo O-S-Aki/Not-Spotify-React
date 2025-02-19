@@ -6,9 +6,9 @@ import { Route, Routes, Link } from 'react-router-dom';
 
 import { Navbar, UserPage, HomePage } from './components';
 
-import { getCredentials, getAuthUrl } from './assets/api-calls/authenticator';
-
+import { getCredentials, getAuthUrl } from './assets/helpers/authenticator';
 import { getUserProfile } from './assets/api-calls/user';
+import { IUserProfile } from './assets/helpers/interfaces/interfaces';
 
 import './App.css';
 
@@ -31,15 +31,11 @@ const App = () => {
     const token = params.get("access_token");
 
     if (token) {
-      console.log(`retrieved token: ${token}`);
-
       setAccessToken(token);
       localStorage.setItem("spotify_access_token", token);
       window.history.pushState({}, "", "/");
     }
     else {
-      console.log(`stored token: ${localStorage.getItem("spotify_access_token")}`)
-
       setAccessToken(localStorage.getItem("spotify_access_token"))
     }
   }, []);
@@ -47,10 +43,9 @@ const App = () => {
   useEffect(() => {
     if (accessToken) {
       const fetchUserProfile = async () => {
-        const fetchedUser = await getUserProfile(accessToken);
-
-        if (fetchedUser) {
-          setUser(fetchedUser);
+        const userProfile: IUserProfile | null = await getUserProfile(accessToken!);
+        if (userProfile) {
+          setUser(userProfile);
         }
       }
       
@@ -78,8 +73,8 @@ const App = () => {
           <Route path='/home' element={<HomePage />} />
 
           <Route path='/user'>
-            <Route index element={<UserPage accessToken={accessToken} user={user} />} />
-            <Route path='profile' element={<UserPage accessToken={accessToken} user={user} />} />
+            <Route index element={<UserPage accessToken={accessToken} />} />
+            <Route path='profile' element={<UserPage accessToken={accessToken} />} />
           </Route>
         </Routes>
       </div>

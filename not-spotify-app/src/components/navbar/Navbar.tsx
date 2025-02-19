@@ -1,21 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { NavbarDropdown } from '../../components';
+import { INavbarProps } from '../../assets/helpers/interfaces/propsInterfaces';
 
 import SpotifyIcon from '../../assets/images/spotify-icon-white.svg';
 
 import './navbar.css';
 
-interface NavbarProps {
-  accessToken: string | null;
-  authUrl: string;
-  logout: () => void;
-  user: any;
-}
-
-const Navbar: React.FC<NavbarProps> = ({ accessToken, authUrl, user, logout }) => {
+const Navbar: React.FC<INavbarProps> = ({ accessToken, authUrl, user, logout }) => {
   return (
-    <nav className="navbar navbar-expand-sm navbar-dark ps-3 pe-3">
+    <nav className="navbar navbar-expand-sm navbar-dark p-3">
       <div className="container-fluid">
         <Link className="navbar-brand m-0" to="/">
           <img src={SpotifyIcon} alt="Application icon" className="navbar-image" />
@@ -39,8 +33,7 @@ const Navbar: React.FC<NavbarProps> = ({ accessToken, authUrl, user, logout }) =
                       </>
                     ) : (
                       <div>
-                        <p className='m-0 translucent-text'>Loading user...</p>
-                        <a href={authUrl} className='translucent-text page-link small-font'>Refresh Token</a>
+                        <a href={authUrl} className='translucent-text page-link small-font'>Click to Refresh Token</a>
                       </div>
                     )
                   }

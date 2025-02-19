@@ -6,3 +6,52 @@
   width: 85%;
   align-self: center;
 }
+
+.small-font {
+  font-size: small;
+}
+
+.page-link:hover {
+  color: var(--white);
+  text-decoration: underline;
+}
+
+.translucent-text {
+  opacity: 0.7;
+}
+
+.translucent-text.page-link:hover {
+  opacity: 1;
+}
+
+.section-header {
+  font-weight: 700;
+}
+
+.square-container {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+.square {
+  object-fit: cover;
+  object-position: center;
+}
+
+.round {
+  border-radius: 50%;
+}
+
+.summary-container {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.summary-container .display-name {
+  font-weight: 800;
+  font-size: clamp(1.5rem, 5vw, 3rem);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
