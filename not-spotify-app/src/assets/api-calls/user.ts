@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getCredentials } from "../helpers/authenticator";
-import { capitalizeFirst, mapArtistList } from "../helpers/apiHelpers";
-import { IArtistList, ISimpleArtist, ITrackList, IUserProfile } from "../helpers/interfaces/interfaces";
+import { capitalizeFirst, mapArtistList, mapPlaylistList, mapTrackList } from "../helpers/apiHelpers";
+import { IArtistList, IPlaylistList, ITrackList, IUserProfile } from "../helpers/interfaces/interfaces";
 
 import { makeGetRequest } from "./defaults";
 
@@ -42,7 +42,6 @@ export const getTopArtists = async (accessToken: string) => {
     const fetchedArtists = response.data;
 
     const artistList: IArtistList = mapArtistList(fetchedArtists);
-
     return artistList;
 
   } catch (error) {
@@ -62,18 +61,36 @@ export const getTopTracks = async (accessToken: string) => {
     const response = await makeGetRequest(url, accessToken);
     const fetchedTracks = response.data;
 
-    console.log(fetchedTracks);
-
-    let trackList: ITrackList = {
-      items: [],
-      total: 0,
-    }
-
-    fetchedTracks.items.forEach((fetchedTrack: any) => {
-      let artistList
-    });
+    const trackList: ITrackList = mapTrackList(fetchedTracks);
+    return trackList;
   }
   catch (error) {
     console.error("Error fetching user's top tracks: ", error);
+    return null;
+  }
+}
+
+// gets the currently logged in user's public playlists
+export const getPublicPlaylists = async (accessToken: string, userId: string) => {
+  try {
+    const url = `${baseUrl}/me/playlists`;
+    const response = await makeGetRequest(url, accessToken);
+    const fetchedPlaylists = response.data;
+
+    const playlistList: IPlaylistList = mapPlaylistList(fetchedPlaylists);
+    const filtered = playlistList.items.filter(playlist =>
+      playlist.isPublic && playlist.owner.id === userId);
+
+    const publicPlaylists: IPlaylistList = {
+      items: filtered,
+      total: filtered.length,
+    };    
+
+    console.log(publicPlaylists);
+    return publicPlaylists;
+  }
+  catch (error) {
+    console.error("Error fetching user's public playlists: ", error);
+    return null;
   }
 }

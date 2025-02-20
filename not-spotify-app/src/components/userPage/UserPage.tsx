@@ -3,10 +3,10 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { IAccessTokenProps } from '../../assets/helpers/interfaces/propsInterfaces';
-import { IArtistList, ITrackList, IUserProfile } from '../../assets/helpers/interfaces/interfaces';
+import { IArtistList, IPlaylistList, ITrackList, IUserProfile } from '../../assets/helpers/interfaces/interfaces';
 
 import { getDominantColor } from '../../assets/helpers/colorPalette';
-import { getUserProfile, getTopArtists, getTopTracks } from '../../assets/api-calls/user';
+import { getUserProfile, getTopArtists, getTopTracks, getPublicPlaylists } from '../../assets/api-calls/user';
 
 import { Artists } from '../../components'
 
@@ -18,7 +18,7 @@ const UserPage: React.FC<IAccessTokenProps> = ({ accessToken }) => {
 
   const [topArtists, setTopArtists] = useState<IArtistList | null>(null);
   const [topTracks, setTopTracks] = useState<ITrackList | null>(null);
-  const [publicPlaylists, setPublicPlaylists] = useState<any>([]);
+  const [publicPlaylists, setPublicPlaylists] = useState<IPlaylistList | null>(null);
 
   useEffect(() => {
   // persisting the access token if the page reloads
@@ -27,8 +27,9 @@ const UserPage: React.FC<IAccessTokenProps> = ({ accessToken }) => {
     }
     
     const fetchPageInfo = async () => {
-      // fetching the user profile
-      const userProfile: IUserProfile | null = await getUserProfile(accessToken!);
+      if (accessToken) {
+        // fetching the user profile
+        const userProfile: IUserProfile | null = await getUserProfile(accessToken);
         if (userProfile) {
           setUser(userProfile);
 
@@ -38,14 +39,24 @@ const UserPage: React.FC<IAccessTokenProps> = ({ accessToken }) => {
             .catch((err) => console.error("Error getting dominant color:", err));
 
           // fetching the user's top artists
-          const artists: IArtistList | null = await getTopArtists(accessToken!);
+          const artists: IArtistList | null = await getTopArtists(accessToken);
           if (artists) {
             setTopArtists(artists);
           }
 
           // fetching the user's top tracks
-          await getTopTracks(accessToken!);
+          const tracks: ITrackList | null = await getTopTracks(accessToken);
+          if (tracks) {
+            setTopTracks(tracks);
+          }
+
+          // fetching the user's public playlists
+          const playlists: IPlaylistList | null=  await getPublicPlaylists(accessToken, userProfile.id);
+          if (playlists) {
+            setPublicPlaylists(playlists);
+          }
         }
+      }
     }
 
     fetchPageInfo();

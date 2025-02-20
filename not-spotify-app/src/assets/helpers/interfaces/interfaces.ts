@@ -6,6 +6,12 @@ export interface IUserProfile {
   type: string;
 }
 
+export interface ISimpleUser {
+  id: string;
+  displayName: string;
+  type: string;
+}
+
 export interface ISimpleArtist {
   id: string;
   name: string;
@@ -37,5 +43,19 @@ export interface ISimpleTrack {
 
 export interface ITrackList {
   items: ISimpleTrack[];
+  total: number;
+}
+
+export interface ISimplePlaylist {
+  id: string;
+  name: string;
+  image: string;
+  owner: ISimpleUser;
+  isPublic: boolean;
+  type: string;
+}
+
+export interface IPlaylistList {
+  items: ISimplePlaylist[];
   total: number;
 }
