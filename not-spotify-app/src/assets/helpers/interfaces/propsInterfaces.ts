@@ -55,3 +55,7 @@ export interface IPlaylistsProps {
 export interface ISimplePlaylistProps {
   playlist: ISimplePlaylist;
 }
+
+export interface IArtistPageProps {
+  accessToken: string | null;
+}

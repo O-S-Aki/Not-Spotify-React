@@ -21,7 +21,7 @@ const UserPage: React.FC<IAccessTokenProps> = ({ accessToken }) => {
   const [publicPlaylists, setPublicPlaylists] = useState<IPlaylistList | null>(null);
 
   useEffect(() => {
-  // persisting the access token if the page reloads
+    // persisting the access token if the page reloads
     if (!accessToken) {
       accessToken = (localStorage.getItem("spotify_access_token"));
     }
@@ -78,7 +78,7 @@ const UserPage: React.FC<IAccessTokenProps> = ({ accessToken }) => {
               <p className="translucent-text m-0">Profile</p>
               <p className="display-name mb-1">{user.displayName}</p>
               <p className="m-0">
-                <span className="translucent-text">{0} Public Playlists</span>
+                <span className="translucent-text">{publicPlaylists.total} Public Playlists</span>
                 <i className="bi bi-dot"></i>
                 {user.followers} Followers
               </p>
