@@ -1,6 +1,6 @@
 import { getCredentials } from "../helpers/authenticator";
-import { capitalizeFirst, mapArtistList, mapPlaylistList, mapTrackList } from "../helpers/apiHelpers";
-import { IArtistList, IPlaylistList, ITrackList, IUserProfile } from "../helpers/interfaces/objectInterfaces";
+import { capitalizeFirst, mapArtistList, mapPlaylistList, mapTrackList, mapUser } from "../helpers/apiMappers";
+import { IArtistList, IPlaylistList, ITrackList, IUser } from "../helpers/interfaces/objectInterfaces";
 
 import { makeGetRequest } from "./defaults";
 
@@ -13,17 +13,10 @@ export const getUserProfile = async (accessToken: string) => {
     const response = await makeGetRequest(url, accessToken);
     const fetchedUser = response.data;
 
-    const userProfile: IUserProfile = {
-      id: fetchedUser.id,
-      displayName: fetchedUser.display_name,
-      followers: fetchedUser.followers.total || 0,
-      image: fetchedUser.images[0].url || "",
-      type: capitalizeFirst(fetchedUser.type),
-    }
-
+    const userProfile: IUser = mapUser(fetchedUser)
     return userProfile;
-
-  } catch (error) {
+  }
+  catch (error) {
     console.error("Error fetching user profile: ", error);
     return null;
   }
@@ -42,8 +35,8 @@ export const getTopArtists = async (accessToken: string) => {
 
     const artistList: IArtistList = mapArtistList(fetchedArtists);
     return artistList;
-
-  } catch (error) {
+  }
+  catch (error) {
     console.error("Error fetching user's top artists: ", error);
     return null;
   }

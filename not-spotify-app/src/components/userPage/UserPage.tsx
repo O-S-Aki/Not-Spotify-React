@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { IAccessTokenProps } from '../../assets/helpers/interfaces/propsInterfaces';
-import { IArtistList, IPlaylistList, ITrackList, IUserProfile } from '../../assets/helpers/interfaces/objectInterfaces';
+import { IArtistList, IPlaylistList, ITrackList, IUser } from '../../assets/helpers/interfaces/objectInterfaces';
 
 import { getDominantColor } from '../../assets/helpers/colorPalette';
 import { getUserProfile, getTopArtists, getTopTracks, getPublicPlaylists } from '../../assets/api-calls/user';
@@ -13,7 +13,7 @@ import { Artists, Playlists, Tracks } from '../../components'
 import './userPage.css';
 
 const UserPage: React.FC<IAccessTokenProps> = ({ accessToken }) => {
-  const [user, setUser] = useState<IUserProfile | null>(null);
+  const [user, setUser] = useState<IUser | null>(null);
   const [dominantColorRgb, setDominantColorRgb] = useState<string>("");
 
   const [topArtists, setTopArtists] = useState<IArtistList | null>(null);
@@ -29,7 +29,7 @@ const UserPage: React.FC<IAccessTokenProps> = ({ accessToken }) => {
     const fetchPageInfo = async () => {
       if (accessToken) {
         // fetching the user profile
-        const userProfile: IUserProfile | null = await getUserProfile(accessToken);
+        const userProfile: IUser | null = await getUserProfile(accessToken);
         if (userProfile) {
           setUser(userProfile);
 
@@ -51,7 +51,7 @@ const UserPage: React.FC<IAccessTokenProps> = ({ accessToken }) => {
           }
 
           // fetching the user's public playlists
-          const playlists: IPlaylistList | null =  await getPublicPlaylists(accessToken, userProfile.id);
+          const playlists: IPlaylistList | null =  await getPublicPlaylists(accessToken, userProfile.primary.id);
           if (playlists) {
             setPublicPlaylists(playlists);
           }
@@ -76,7 +76,7 @@ const UserPage: React.FC<IAccessTokenProps> = ({ accessToken }) => {
 
             <div className="profile-description d-flex flex-column justify-content-center">
               <p className="translucent-text m-0">Profile</p>
-              <p className="display-name mb-1">{user.displayName}</p>
+              <p className="display-name mb-1">{user.primary.displayName}</p>
               <p className="m-0">
                 <span className="translucent-text">{publicPlaylists.total} Public Playlists</span>
                 <i className="bi bi-dot"></i>

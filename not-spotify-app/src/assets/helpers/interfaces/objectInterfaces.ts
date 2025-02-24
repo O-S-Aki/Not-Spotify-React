@@ -1,9 +1,8 @@
-export interface IUserProfile {
-  id: string;
-  displayName: string;
+/* --------------- USER --------------- */
+export interface IUser {
+  primary: ISimpleUser;
   followers: number;
   image: string;
-  type: string;
 }
 
 export interface ISimpleUser {
@@ -12,10 +11,18 @@ export interface ISimpleUser {
   type: string;
 }
 
+/* --------------- ARTIST --------------- */
+export interface IArtist {
+  primary: ISimpleArtist;
+  followers: number;
+  popularity: number;
+  verified: boolean;
+}
+
 export interface ISimpleArtist {
   id: string;
   name: string;
-  image: string | "";
+  image: string;
   type: string;
 }
 
@@ -24,11 +31,33 @@ export interface IArtistList {
   total: number;
 }
 
+/* --------------- ALBUM --------------- */
+export interface IAlbum {
+  primary: ISimpleAlbum;
+  tracks: ITrackList;
+  duration: string;
+  releaseYear: string;
+  popularity: number;
+  artists: IArtistList;
+  leadArtist: ISimpleArtist;
+}
+
 export interface ISimpleAlbum {
   id: string;
   name: string;
   image: string;
   type: string;
+}
+
+export interface IAlbumList {
+  items: ISimpleAlbum[],
+  total: number,
+}
+
+/* --------------- TRACK --------------- */
+export interface ITrack {
+  primary: ISimpleTrack;
+  
 }
 
 export interface ISimpleTrack {
@@ -48,6 +77,7 @@ export interface ITrackList {
   total: number;
 }
 
+/* --------------- PLAYLIST --------------- */
 export interface ISimplePlaylist {
   id: string;
   name: string;

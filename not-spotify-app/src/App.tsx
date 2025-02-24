@@ -8,7 +8,7 @@ import { Navbar, UserPage, HomePage } from './components';
 
 import { getCredentials, getAuthUrl } from './assets/helpers/authenticator';
 import { getUserProfile } from './assets/api-calls/user';
-import { IUserProfile } from './assets/helpers/interfaces/objectInterfaces';
+import { IUser } from './assets/helpers/interfaces/objectInterfaces';
 
 import './App.css';
 
@@ -43,7 +43,7 @@ const App = () => {
   useEffect(() => {
     if (accessToken) {
       const fetchUserProfile = async () => {
-        const userProfile: IUserProfile | null = await getUserProfile(accessToken!);
+        const userProfile: IUser | null = await getUserProfile(accessToken!);
         if (userProfile) {
           setUser(userProfile);
         }
