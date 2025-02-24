@@ -1,11 +1,27 @@
 import { IArtistList, IPlaylistList, ISimpleAlbum,
   ISimpleArtist, ISimplePlaylist, ISimpleTrack, 
-  ISimpleUser, ITrackList } from "./interfaces/interfaces";
+  ISimpleUser, ITrackList } from "./interfaces/objectInterfaces";
 
 // capitalizes the first leter of a string
 export const capitalizeFirst = (str: string): string => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
+
+// formats a millisecond duration into m:ss or h:mm:ss format
+export const formatDuration = (milliseconds: number): string => {
+  const seconds = Math.floor(milliseconds / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+
+  const remainingSeconds = seconds % 60;
+  const remainingMinutes = minutes % 60;
+
+  if (hours > 0) {
+    return `${hours}:${remainingMinutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
+  } else {
+    return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
+  }
+}
 
 // maps a simple artist API response into a strongly typed object
 export const mapSimpleArtist = (fetchedArtist: any): ISimpleArtist => {
@@ -47,6 +63,8 @@ export const mapSimpleTrack = (fetchedTrack: any): ISimpleTrack => {
     artists: mapArtistList(fetchedTrack.artists),
     type: capitalizeFirst(fetchedTrack.type),
     album: mapSimpleAlbum(fetchedTrack.album),
+    isExplicit: fetchedTrack.explicit,
+    duration: formatDuration(fetchedTrack.duration_ms),
   };
 
   return track;

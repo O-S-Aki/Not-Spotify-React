@@ -1,9 +1,13 @@
-.artists-container .artist-card {
+.playlist-image-container img {
+  border-radius: 10px;
+}
+
+.playlist-card {
   border-radius: 10px;
   cursor: pointer;
 }
 
-.artists-container .artist-card:hover {
+.playlist-card:hover {
   filter: brightness(1.1);
   background-color: var(--gray);
 }

@@ -8,7 +8,7 @@ import { Navbar, UserPage, HomePage } from './components';
 
 import { getCredentials, getAuthUrl } from './assets/helpers/authenticator';
 import { getUserProfile } from './assets/api-calls/user';
-import { IUserProfile } from './assets/helpers/interfaces/interfaces';
+import { IUserProfile } from './assets/helpers/interfaces/objectInterfaces';
 
 import './App.css';
 

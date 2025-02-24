@@ -1,0 +1,47 @@
+.tracks-table tbody tr {
+  background-color: var(--black);
+  cursor: pointer;
+}
+
+.tracks-table tbody tr:hover {
+  background-color: var(--gray);
+  opacity: 1;
+  filter: brightness(1.1);
+}
+
+.tracks-table tbody tr:hover .translucent-text {
+  opacity: 1 !important;
+}
+
+.tracks-table .track-number {
+  min-width: 3ch;
+}
+
+.tracks-table th {
+  color: var(--white);
+  background-color: var(--black);
+  border: none;
+  font-weight: 500;
+}
+
+.table thead {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.tracks-table tr .table-dots {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.tracks-table tbody tr:hover .table-dots {
+  opacity: 1;
+  visibility: visible;
+}
+
+.track-image-container {
+  height: 3rem;
+}
+
+.track-image-container img {
+  border-radius: 5px;
+}
