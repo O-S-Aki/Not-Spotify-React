@@ -8,7 +8,7 @@ import { IArtistList, IPlaylistList, ITrackList, IUserProfile } from '../../asse
 import { getDominantColor } from '../../assets/helpers/colorPalette';
 import { getUserProfile, getTopArtists, getTopTracks, getPublicPlaylists } from '../../assets/api-calls/user';
 
-import { Artists, Tracks } from '../../components'
+import { Artists, Playlists, Tracks } from '../../components'
 
 import './userPage.css';
 
@@ -103,6 +103,14 @@ const UserPage: React.FC<IAccessTokenProps> = ({ accessToken }) => {
             <div className="mt-3">
               <Tracks tracks={topTracks} maxTracks={5} showHead={false} showImage={true} showAlbum={true} showDate={false} />
             </div>
+          </div>
+
+          <div className="container playlists-container section-container mt-3 p-4 d-flex flex-column">
+            <div className="d-flex flex-row justify-content-between">
+              <h5 className="m-0 section-header">Public Playlists</h5>
+              <p className="m-0 translucent-text"><strong>Show all</strong></p>
+            </div>
+            <Playlists playlists={publicPlaylists} maxPlaylists={6} />
           </div>
         </>
       ) : (

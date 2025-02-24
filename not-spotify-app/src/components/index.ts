@@ -7,3 +7,5 @@ export { default as SimpleArtist } from './artists/simpleArtist/SimpleArtist';
 export { default as Tracks } from './tracks/Tracks';
 export { default as SimpleTrack } from './tracks/simpleTrack/SimpleTrack'; 
 export { default as TracksHead } from './tracks/tracksHead/TracksHead';
+export { default as Playlists } from './playlists/Playlists';
+export { default as SimplePlaylist } from './playlists/simplePlaylist/SimplePlaylist';

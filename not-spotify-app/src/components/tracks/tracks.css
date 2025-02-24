@@ -6,7 +6,7 @@
 .tracks-table tbody tr:hover {
   background-color: var(--gray);
   opacity: 1;
-  filter: brightness(1.2);
+  filter: brightness(1.1);
 }
 
 .tracks-table tbody tr:hover .translucent-text {
