@@ -1,9 +1,9 @@
-.top-artists-container .artist-card {
+.artists-container .artist-card {
   border-radius: 20px;
   cursor: pointer;
 }
 
-.top-artists-container .artist-card:hover {
+.artists-container .artist-card:hover {
   filter: brightness(1.1);
   background-color: var(--gray);
 }

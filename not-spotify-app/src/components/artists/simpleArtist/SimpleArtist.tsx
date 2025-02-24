@@ -5,7 +5,7 @@ import { ISimpleArtistProps } from '../../../assets/helpers/interfaces/propsInte
 
 import '../artists.css';
 
-const Artists: React.FC<ISimpleArtistProps> = ({ artist }) => {
+const SimpleArtist: React.FC<ISimpleArtistProps> = ({ artist }) => {
   return (
     <>
     {
@@ -30,4 +30,4 @@ const Artists: React.FC<ISimpleArtistProps> = ({ artist }) => {
   )
 }
 
-export default Artists
+export default SimpleArtist

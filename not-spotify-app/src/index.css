@@ -9,6 +9,7 @@
 html {
   position: relative;
   min-height: 100%;
+  font-size: 14px;
 }
 
 body {
@@ -30,4 +31,10 @@ a:hover {
 
 hr {
   margin: 0.5rem 0;
+}
+
+.table td {
+  background-color: transparent;
+  color: var(--white);
+  border: none;
 }

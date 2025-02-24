@@ -1,7 +1,6 @@
-import axios from "axios";
 import { getCredentials } from "../helpers/authenticator";
 import { capitalizeFirst, mapArtistList, mapPlaylistList, mapTrackList } from "../helpers/apiHelpers";
-import { IArtistList, IPlaylistList, ITrackList, IUserProfile } from "../helpers/interfaces/interfaces";
+import { IArtistList, IPlaylistList, ITrackList, IUserProfile } from "../helpers/interfaces/objectInterfaces";
 
 import { makeGetRequest } from "./defaults";
 
@@ -86,7 +85,6 @@ export const getPublicPlaylists = async (accessToken: string, userId: string) =>
       total: filtered.length,
     };    
 
-    console.log(publicPlaylists);
     return publicPlaylists;
   }
   catch (error) {

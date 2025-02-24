@@ -4,3 +4,6 @@ export { default as UserPage } from './userPage/UserPage';
 export { default as NavbarDropdown } from './navbar/navbarDropdown/NavbarDropdown';
 export { default as Artists } from './artists/Artists';
 export { default as SimpleArtist } from './artists/simpleArtist/SimpleArtist';
+export { default as Tracks } from './tracks/Tracks';
+export { default as SimpleTrack } from './tracks/simpleTrack/SimpleTrack'; 
+export { default as TracksHead } from './tracks/tracksHead/TracksHead';

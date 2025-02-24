@@ -39,6 +39,8 @@ export interface ISimpleTrack {
   type: string;
   artists: IArtistList;
   album: ISimpleAlbum;
+  isExplicit: boolean;
+  duration: string;
 }
 
 export interface ITrackList {
