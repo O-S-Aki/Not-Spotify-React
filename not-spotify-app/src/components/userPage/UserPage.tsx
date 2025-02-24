@@ -89,7 +89,7 @@ const UserPage: React.FC<IAccessTokenProps> = ({ accessToken }) => {
             <h5 className="m-0 section-header">Top artists this month</h5>
             <div className="d-flex flex-row justify-content-between">
               <p className="m-0 translucent-text">Only visible to you</p>
-              <p className="m-0 translucent-text"><strong>Show all</strong></p>
+              <p className="m-0 translucent-text"><strong>Show all!</strong></p>
             </div>
             <Artists artists={topArtists} maxArtists={6} />
           </div>
