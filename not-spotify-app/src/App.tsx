@@ -1,10 +1,9 @@
 import React from 'react';
-import axios from "axios";
 
 import { useState, useEffect } from 'react';
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 
-import { Navbar, UserPage, HomePage } from './components';
+import { Navbar, UserPage, HomePage, ArtistPage } from './components';
 
 import { getCredentials, getAuthUrl } from './assets/helpers/authenticator';
 import { getUserProfile } from './assets/api-calls/user';
@@ -15,6 +14,7 @@ import './App.css';
 const App = () => {
   const spotify = getCredentials();
   const authUrl = getAuthUrl();
+  const navigate = useNavigate();
 
   // hook for getting and setting the access token.
   const [accessToken, setAccessToken] = useState<string | null>(null);
@@ -60,6 +60,11 @@ const App = () => {
     localStorage.removeItem("spotify_access_token");
   };
 
+  const clickLink = (event: React.MouseEvent, url: string) => {
+    event.stopPropagation();
+    navigate(url);
+  }
+
   return (
     <div className="app d-flex flex-column">
 
@@ -73,8 +78,12 @@ const App = () => {
           <Route path='/home' element={<HomePage />} />
 
           <Route path='/user'>
-            <Route index element={<UserPage token={accessToken} />} />
-            <Route path='profile' element={<UserPage token={accessToken} />} />
+            <Route index element={<UserPage token={accessToken} clickLink={clickLink} />} />
+            <Route path='profile' element={<UserPage token={accessToken} clickLink={clickLink} />} />
+          </Route>
+
+          <Route path='/artist'>
+            <Route path=':id' element={<ArtistPage token={accessToken} clickLink={clickLink} />} />
           </Route>
         </Routes>
       </div>

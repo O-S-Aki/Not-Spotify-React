@@ -1,11 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-
 import { ISimplePlaylistProps } from '../../../assets/helpers/interfaces/propsInterfaces';
 
 import '../playlists.css';
 
-const SimplePlaylist: React.FC<ISimplePlaylistProps> = ({ playlist }) => {
+const SimplePlaylist: React.FC<ISimplePlaylistProps> = ({ playlist, clickLink }) => {
   return (
     <>
     {

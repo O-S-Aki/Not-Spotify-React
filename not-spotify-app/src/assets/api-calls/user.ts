@@ -1,5 +1,5 @@
 import { getCredentials } from "../helpers/authenticator";
-import { capitalizeFirst, mapArtistList, mapPlaylistList, mapTrackList, mapUser } from "../helpers/apiMappers";
+import { mapArtistList, mapPlaylistList, mapTrackList, mapUser } from "../helpers/apiMappers";
 import { IArtistList, IPlaylistList, ITrackList, IUser } from "../helpers/interfaces/objectInterfaces";
 
 import { makeGetRequest } from "./defaults";

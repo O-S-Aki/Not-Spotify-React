@@ -1,9 +1,10 @@
 import { IUser, IArtistList, ISimpleArtist, 
   ITrackList, ISimpleTrack, IPlaylistList, 
-  ISimplePlaylist } from "./objectInterfaces";
+  ISimplePlaylist, ISimpleAlbum, IAlbumList } from "./objectInterfaces";
 
-export interface IAccessTokenProps {
+export interface IPageProps {
   token: string | null;
+  clickLink: (event: React.MouseEvent, url: string) => void;
 }
 
 export interface INavbarProps {
@@ -21,10 +22,12 @@ export interface INavbarDropdownProps {
 export interface IArtistsProps {
   artists: IArtistList;
   maxArtists: number;
+  clickLink: (event: React.MouseEvent, url: string) => void;
 }
 
 export interface ISimpleArtistProps {
   artist: ISimpleArtist;
+  clickLink: (event: React.MouseEvent, url: string) => void;
 }
 
 export interface ITracksProps {
@@ -34,6 +37,7 @@ export interface ITracksProps {
   showImage: boolean;
   showAlbum: boolean; 
   showDate: boolean;
+  clickLink: (event: React.MouseEvent, url: string) => void;
 }
 
 export interface ISimpleTrackProps {
@@ -42,6 +46,7 @@ export interface ISimpleTrackProps {
   showImage: boolean;
   showAlbum: boolean; 
   showDate: boolean;
+  clickLink: (event: React.MouseEvent, url: string) => void;
 }
 
 export interface ITracksHeadProps {
@@ -52,8 +57,25 @@ export interface ITracksHeadProps {
 export interface IPlaylistsProps {
   playlists: IPlaylistList;
   maxPlaylists: number;
+  clickLink: (event: React.MouseEvent, url: string) => void;
 }
 
 export interface ISimplePlaylistProps {
   playlist: ISimplePlaylist;
+  clickLink: (event: React.MouseEvent, url: string) => void;
+}
+
+export interface IPopularityProps {
+  score: number;
+}
+
+export interface IAlbumsProps {
+  albums: IAlbumList;
+  maxAlbums: number;
+  clickLink: (event: React.MouseEvent, url: string) => void;
+}
+
+export interface ISimpleAlbumProps {
+  album: ISimpleAlbum;
+  clickLink: (event: React.MouseEvent, url: string) => void;
 }

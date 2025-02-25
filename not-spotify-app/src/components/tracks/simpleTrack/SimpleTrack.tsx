@@ -1,11 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-
 import { ISimpleTrackProps } from '../../../assets/helpers/interfaces/propsInterfaces';
 
 import '../tracks.css';
 
-const SimpleTrack: React.FC<ISimpleTrackProps> = ({ track, index, showImage, showAlbum, showDate }) => {    
+const SimpleTrack: React.FC<ISimpleTrackProps> = ({ track, index, showImage, showAlbum, showDate, clickLink }) => {    
   return (
     <>
     {
@@ -44,9 +42,12 @@ const SimpleTrack: React.FC<ISimpleTrackProps> = ({ track, index, showImage, sho
 
                     {
                       track.artists.items.map((artist, i) => (
-                        <span key={i} className='d-inline page-link'>
-                          {artist.name}{i < track.artists.total - 1 ? ", " : ""}
-                        </span>
+                        <React.Fragment key={i}>
+                          <span onClick={(e) => clickLink(e, `/artist/${artist.id}`)} key={i} className="d-inline page-link">
+                            {artist.name}
+                          </span>
+                          {i < track.artists.total - 1 ? ", " : ""}
+                        </React.Fragment>
                       ))
                     }
                   </p>
