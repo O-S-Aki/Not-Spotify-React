@@ -1,12 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-
 import { ITracksProps } from '../../assets/helpers/interfaces/propsInterfaces';
 import { TracksHead, SimpleTrack } from '../../components';
 
 import './tracks.css';
 
-const Tracks: React.FC<ITracksProps> = ({ tracks, maxTracks, showHead, showImage, showAlbum, showDate }) => {
+const Tracks: React.FC<ITracksProps> = ({ tracks, maxTracks, showHead, showImage, showAlbum, showDate, clickLink }) => {
   return (
     <>
     {
@@ -26,7 +24,7 @@ const Tracks: React.FC<ITracksProps> = ({ tracks, maxTracks, showHead, showImage
               <tbody>
                 {
                   tracks.items.slice(0, maxTracks).map((track, index) => (
-                    <SimpleTrack key={index} track={track} index={index + 1} showImage={showImage} showAlbum={showAlbum} showDate={showDate} />
+                    <SimpleTrack key={index} track={track} index={index + 1} showImage={showImage} showAlbum={showAlbum} showDate={showDate} clickLink={clickLink} />
                   ))
                 }
               </tbody>

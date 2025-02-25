@@ -6,7 +6,7 @@ import { SimpleArtist } from '../../components';
 
 import './artists.css';
 
-const Artists: React.FC<IArtistsProps> = ({ artists, maxArtists }) => {
+const Artists: React.FC<IArtistsProps> = ({ artists, maxArtists, clickLink }) => {
   return (
     <>
     {
@@ -15,7 +15,7 @@ const Artists: React.FC<IArtistsProps> = ({ artists, maxArtists }) => {
           <div className="artist-cards mt-3 row">
           {
             artists.items.slice(0, maxArtists).map((artist, index) => (
-              <SimpleArtist key={index} artist={artist} />
+              <SimpleArtist key={index} artist={artist} clickLink={clickLink} />
             ))
           }
           </div>

@@ -8,9 +8,12 @@ export { default as NavbarDropdown } from './navbar/navbarDropdown/NavbarDropdow
 export { default as Artists } from './artists/Artists';
 export { default as Tracks } from './tracks/Tracks';
 export { default as Playlists } from './playlists/Playlists';
+export { default as Albums } from './albums/Albums';
 
 export { default as SimpleArtist } from './artists/simpleArtist/SimpleArtist';
 export { default as SimpleTrack } from './tracks/simpleTrack/SimpleTrack'; 
 export { default as SimplePlaylist } from './playlists/simplePlaylist/SimplePlaylist';
+export { default as SimpleAlbum } from './albums/simpleAlbum/SimpleAlbum';
 
 export { default as TracksHead } from './tracks/tracksHead/TracksHead';
+export { default as Popularity } from './popularity/Popularity';
