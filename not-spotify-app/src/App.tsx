@@ -8,7 +8,7 @@ import { Navbar, UserPage, HomePage } from './components';
 
 import { getCredentials, getAuthUrl } from './assets/helpers/authenticator';
 import { getUserProfile } from './assets/api-calls/user';
-import { IUserProfile } from './assets/helpers/interfaces/objectInterfaces';
+import { IUser } from './assets/helpers/interfaces/objectInterfaces';
 
 import './App.css';
 
@@ -43,7 +43,7 @@ const App = () => {
   useEffect(() => {
     if (accessToken) {
       const fetchUserProfile = async () => {
-        const userProfile: IUserProfile | null = await getUserProfile(accessToken!);
+        const userProfile: IUser | null = await getUserProfile(accessToken!);
         if (userProfile) {
           setUser(userProfile);
         }
@@ -64,7 +64,7 @@ const App = () => {
     <div className="app d-flex flex-column">
 
       <header>
-        <Navbar accessToken={accessToken} authUrl={authUrl} user={user} logout={logout} />
+        <Navbar token={accessToken} authUrl={authUrl} user={user} logout={logout} />
       </header>
 
       <div className="main">        
@@ -73,8 +73,8 @@ const App = () => {
           <Route path='/home' element={<HomePage />} />
 
           <Route path='/user'>
-            <Route index element={<UserPage accessToken={accessToken} />} />
-            <Route path='profile' element={<UserPage accessToken={accessToken} />} />
+            <Route index element={<UserPage token={accessToken} />} />
+            <Route path='profile' element={<UserPage token={accessToken} />} />
           </Route>
         </Routes>
       </div>

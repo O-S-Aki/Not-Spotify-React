@@ -1,9 +1,8 @@
-export interface IUserProfile {
-  id: string;
-  displayName: string;
+/* --------------- USER --------------- */
+export interface IUser {
+  primary: ISimpleUser;
   followers: number;
   image: string;
-  type: string;
 }
 
 export interface ISimpleUser {
@@ -12,10 +11,18 @@ export interface ISimpleUser {
   type: string;
 }
 
+/* --------------- ARTIST --------------- */
+export interface IArtist {
+  primary: ISimpleArtist;
+  followers: number;
+  popularity: number;
+  verified: boolean;
+}
+
 export interface ISimpleArtist {
   id: string;
   name: string;
-  image: string | "";
+  image: string;
   type: string;
 }
 
@@ -24,11 +31,34 @@ export interface IArtistList {
   total: number;
 }
 
+/* --------------- ALBUM --------------- */
+export interface IAlbum {
+  primary: ISimpleAlbum;
+  tracks: ITrackList;
+  duration: string;
+  popularity: number;
+  artists: IArtistList;
+  copyright: string;
+}
+
 export interface ISimpleAlbum {
   id: string;
   name: string;
   image: string;
   type: string;
+  releaseYear: string;
+  releaseDate: string;
+}
+
+export interface IAlbumList {
+  items: ISimpleAlbum[],
+  total: number,
+}
+
+/* --------------- TRACK --------------- */
+export interface ITrack {
+  primary: ISimpleTrack;
+  popularity: number;
 }
 
 export interface ISimpleTrack {
@@ -41,11 +71,21 @@ export interface ISimpleTrack {
   album: ISimpleAlbum;
   isExplicit: boolean;
   duration: string;
+  addedAt: string;
 }
 
 export interface ITrackList {
   items: ISimpleTrack[];
   total: number;
+}
+
+/* --------------- PLAYLIST --------------- */
+export interface IPlaylist {
+  primary: ISimplePlaylist;
+  description: string;
+  followers: number;
+  tracks: ITrackList;
+  duration: string;
 }
 
 export interface ISimplePlaylist {
