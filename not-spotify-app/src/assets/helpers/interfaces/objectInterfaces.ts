@@ -36,10 +36,9 @@ export interface IAlbum {
   primary: ISimpleAlbum;
   tracks: ITrackList;
   duration: string;
-  releaseYear: string;
   popularity: number;
   artists: IArtistList;
-  leadArtist: ISimpleArtist;
+  copyright: string;
 }
 
 export interface ISimpleAlbum {
@@ -47,6 +46,8 @@ export interface ISimpleAlbum {
   name: string;
   image: string;
   type: string;
+  releaseYear: string;
+  releaseDate: string;
 }
 
 export interface IAlbumList {
@@ -57,7 +58,7 @@ export interface IAlbumList {
 /* --------------- TRACK --------------- */
 export interface ITrack {
   primary: ISimpleTrack;
-  
+  popularity: number;
 }
 
 export interface ISimpleTrack {
@@ -70,6 +71,7 @@ export interface ISimpleTrack {
   album: ISimpleAlbum;
   isExplicit: boolean;
   duration: string;
+  addedAt: string;
 }
 
 export interface ITrackList {
@@ -78,6 +80,14 @@ export interface ITrackList {
 }
 
 /* --------------- PLAYLIST --------------- */
+export interface IPlaylist {
+  primary: ISimplePlaylist;
+  description: string;
+  followers: number;
+  tracks: ITrackList;
+  duration: string;
+}
+
 export interface ISimplePlaylist {
   id: string;
   name: string;

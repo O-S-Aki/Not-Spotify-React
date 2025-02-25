@@ -1,14 +1,16 @@
-import { IUser, IArtistList, ISimpleArtist, ITrackList, ISimpleTrack, IPlaylistList, ISimplePlaylist } from "./objectInterfaces";
+import { IUser, IArtistList, ISimpleArtist, 
+  ITrackList, ISimpleTrack, IPlaylistList, 
+  ISimplePlaylist } from "./objectInterfaces";
+
+export interface IAccessTokenProps {
+  token: string | null;
+}
 
 export interface INavbarProps {
-  accessToken: string | null;
+  token: string | null;
   authUrl: string;
   logout: () => void;
   user: IUser;
-}
-
-export interface IAccessTokenProps {
-  accessToken: string | null;
 }
 
 export interface INavbarDropdownProps {
@@ -54,8 +56,4 @@ export interface IPlaylistsProps {
 
 export interface ISimplePlaylistProps {
   playlist: ISimplePlaylist;
-}
-
-export interface IArtistPageProps {
-  accessToken: string | null;
 }

@@ -12,7 +12,9 @@ import { Artists, Playlists, Tracks } from '../../components'
 
 import './userPage.css';
 
-const UserPage: React.FC<IAccessTokenProps> = ({ accessToken }) => {
+const UserPage: React.FC<IAccessTokenProps> = ({ token }) => {
+  const [accessToken, setAccessToken] = useState<string | null>(token || localStorage.getItem("spotify_access_token"));
+
   const [user, setUser] = useState<IUser | null>(null);
   const [dominantColorRgb, setDominantColorRgb] = useState<string>("");
 
@@ -21,11 +23,6 @@ const UserPage: React.FC<IAccessTokenProps> = ({ accessToken }) => {
   const [publicPlaylists, setPublicPlaylists] = useState<IPlaylistList | null>(null);
 
   useEffect(() => {
-    // persisting the access token if the page reloads
-    if (!accessToken) {
-      accessToken = (localStorage.getItem("spotify_access_token"));
-    }
-    
     const fetchPageInfo = async () => {
       if (accessToken) {
         // fetching the user profile

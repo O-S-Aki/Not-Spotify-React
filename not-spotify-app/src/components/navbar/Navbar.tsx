@@ -7,7 +7,7 @@ import SpotifyIcon from '../../assets/images/spotify-icon-white.svg';
 
 import './navbar.css';
 
-const Navbar: React.FC<INavbarProps> = ({ accessToken, authUrl, user, logout }) => {
+const Navbar: React.FC<INavbarProps> = ({ token, authUrl, user, logout }) => {
   return (
     <nav className="navbar navbar-expand-sm navbar-dark p-3">
       <div className="container-fluid">
@@ -24,7 +24,7 @@ const Navbar: React.FC<INavbarProps> = ({ accessToken, authUrl, user, logout }) 
 
           <div className="navbar_profile-container ms-auto position-relative">
             {
-              accessToken ? (
+              token ? (
                 <>
                   {
                     user ? (
