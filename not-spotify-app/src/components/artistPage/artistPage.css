@@ -27,3 +27,30 @@
   font-size: 3.5rem;
 }
 
+.nav-tabs {
+  border: none;
+}
+
+.nav-tabs .nav-item .nav-link {
+  color: var(--white);
+  background-color: var(--gray);
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.nav-tabs .nav-item .nav-link.active {
+  color: var(--black);
+  background-color: var(--white);
+  font-weight: 700;
+  border: none;
+}
+
+.nav-tabs .nav-item .nav-link:hover {
+  border: none;
+  background-color: var(--light-gray);
+  filter: brightness(1.2);
+}
+
+.nav-tabs .nav-item .nav-link.active:hover {
+  background-color: var(--white);
+}

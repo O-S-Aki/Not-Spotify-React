@@ -5,14 +5,13 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import { Navbar, UserPage, HomePage, ArtistPage } from './components';
 
-import { getCredentials, getAuthUrl } from './assets/helpers/authenticator';
+import { getAuthUrl } from './assets/helpers/authenticator';
 import { getUserProfile } from './assets/api-calls/user';
 import { IUser } from './assets/helpers/interfaces/objectInterfaces';
 
 import './App.css';
 
 const App = () => {
-  const spotify = getCredentials();
   const authUrl = getAuthUrl();
   const navigate = useNavigate();
 
@@ -63,7 +62,16 @@ const App = () => {
   const clickLink = (event: React.MouseEvent, url: string) => {
     event.stopPropagation();
     navigate(url);
-  }
+  };
+
+  const updateElementClasses = (element: HTMLElement | null, add: boolean, classes: string[]) => {
+    if (element && add) {
+      element.classList.add(...classes);
+    }
+    else if (element && !add) {
+      element.classList.remove(...classes);
+    }
+  };
 
   return (
     <div className="app d-flex flex-column">
@@ -83,7 +91,7 @@ const App = () => {
           </Route>
 
           <Route path='/artist'>
-            <Route path=':id' element={<ArtistPage token={accessToken} clickLink={clickLink} />} />
+            <Route path=':id' element={<ArtistPage token={accessToken} clickLink={clickLink} updateElementClasses={updateElementClasses} />} />
           </Route>
         </Routes>
       </div>
