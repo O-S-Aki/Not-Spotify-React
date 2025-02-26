@@ -7,6 +7,12 @@ export interface IPageProps {
   clickLink: (event: React.MouseEvent, url: string) => void;
 }
 
+export interface ITabbedPageProps {
+  token: string | null;
+  clickLink: (event: React.MouseEvent, url: string) => void;
+  updateElementClasses: (element: HTMLElement | null, add: boolean, classes: string[]) => void;
+}
+
 export interface INavbarProps {
   token: string | null;
   authUrl: string;
