@@ -6,24 +6,25 @@ import { useParams } from "react-router-dom";
 import { IPageProps } from "../../assets/helpers/interfaces/propsInterfaces";
 import { getDominantColor } from '../../assets/helpers/colorPalette';
 
-import './homePage.css';
+import './playlistPage.css';
 
-const HomePage: React.FC<IPageProps> = ({ token, clickLink }) => {
+const PlaylistPage: React.FC<IPageProps> = ({ token, clickLink }) => {
+  const {id} = useParams();
   const accessToken = token || localStorage.getItem("spotify_access_token");
   
   useEffect(() => {
     const fetchPageInfo = async () => {
-      if (accessToken) {
-
+      if (accessToken && id) {
+        console.log(id);
       }
     }
 
     fetchPageInfo();
-  }, [accessToken])
+  }, [accessToken, id])
 
   return (
     <></>
   )
 }
 
-export default HomePage
+export default PlaylistPage

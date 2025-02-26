@@ -79,10 +79,10 @@ export const mapArtistList = (fetchedArtists: any): IArtistList => {
 export const mapAlbum = (fetchedAlbum: any): IAlbum => {
   const album: IAlbum = {
     primary: mapSimpleAlbum(fetchedAlbum),
-    tracks: mapTrackList(fetchedAlbum.tracks),
+    tracks: mapTrackList(fetchedAlbum.tracks, mapSimpleAlbum(fetchedAlbum)),
     duration: getTotalDuration(fetchedAlbum.tracks),
     popularity: fetchedAlbum.popularity,
-    artists: mapArtistList(fetchedAlbum.artist),
+    artists: mapArtistList(fetchedAlbum.artists),
     copyright: fetchedAlbum.copyrights?.[0]?.text || ""
   };
 
@@ -134,7 +134,7 @@ export const mapTrack = (fetchedTrack: any): ITrack => {
 }
 
 // maps a simple track API response into a strongly typed object
-export const mapSimpleTrack = (fetchedTrack: any): ISimpleTrack => {
+export const mapSimpleTrack = (fetchedTrack: any, parentAlbum?: ISimpleAlbum): ISimpleTrack => {
   const track: ISimpleTrack = {
     id: fetchedTrack.id,
     name: fetchedTrack.name,
@@ -142,7 +142,7 @@ export const mapSimpleTrack = (fetchedTrack: any): ISimpleTrack => {
     trackNumber: fetchedTrack.track_number,
     artists: mapArtistList(fetchedTrack.artists),
     type: capitalizeFirst(fetchedTrack.type),
-    album: mapSimpleAlbum(fetchedTrack.album),
+    album: parentAlbum? parentAlbum : mapSimpleAlbum(fetchedTrack.album),
     isExplicit: fetchedTrack.explicit,
     duration: formatDuration(fetchedTrack.duration_ms),
     addedAt: fetchedTrack.addedAt || "",
@@ -152,7 +152,7 @@ export const mapSimpleTrack = (fetchedTrack: any): ISimpleTrack => {
 }
 
 // maps a track list API response into a strongly typed object
-export const mapTrackList = (fetchedTracks: any): ITrackList => {
+export const mapTrackList = (fetchedTracks: any, parentAlbum?: ISimpleAlbum): ITrackList => {
   let trackList: ITrackList = {
     items: [],
     total: 0,
@@ -161,7 +161,7 @@ export const mapTrackList = (fetchedTracks: any): ITrackList => {
   let list: any = fetchedTracks.items ? fetchedTracks.items : fetchedTracks;
 
   list.forEach((fetchedTrack: any) => {
-    const track = mapSimpleTrack(fetchedTrack);
+    const track = parentAlbum? mapSimpleTrack(fetchedTrack, parentAlbum) : mapSimpleTrack(fetchedTrack);
     trackList.items.push(track);
     trackList.total ++;
   });

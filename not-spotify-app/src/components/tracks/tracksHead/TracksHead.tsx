@@ -19,7 +19,7 @@ const TracksHead: React.FC<ITracksHeadProps> = ({ showAlbum, showDate }) => {
           {
             showAlbum ? (
               <>
-                <th className="align-middle">
+                <th className="align-middle show-album">
                   <p className="m-0 translucent-text">Album</p>
                 </th>
               </>
@@ -31,7 +31,7 @@ const TracksHead: React.FC<ITracksHeadProps> = ({ showAlbum, showDate }) => {
           {
             showDate ? (
               <>
-                <th className="align-middle">
+                <th className="align-middle show-date">
                   <p className="m-0 translucent-text">Date Added</p>
                 </th>
               </>

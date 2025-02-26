@@ -85,3 +85,17 @@ export interface ISimpleAlbumProps {
   album: ISimpleAlbum;
   clickLink: (event: React.MouseEvent, url: string) => void;
 }
+
+export interface IHeaderPanelProps {
+  primary: {
+    name: string;
+    image: string;
+    type: string;
+  };
+  secondary: {
+    name: string;
+    image: string;
+  }
+  description: string;
+  extras: string[]; 
+}

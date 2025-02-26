@@ -1,9 +1,14 @@
 export { default as HomePage } from './homePage/HomePage';
 export { default as UserPage } from './userPage/UserPage';
 export { default as ArtistPage } from './artistPage/ArtistPage';
+export { default as AlbumPage } from './albumPage/AlbumPage';
+export { default as TrackPage } from './trackPage/TrackPage';
+export { default as PlaylistPage } from './playlistPage/PlaylistPage';
 
 export { default as Navbar } from './navbar/Navbar';
 export { default as NavbarDropdown } from './navbar/navbarDropdown/NavbarDropdown';
+
+export { default as HeaderPanel } from './headerPanel/HeaderPanel';
 
 export { default as Artists } from './artists/Artists';
 export { default as Tracks } from './tracks/Tracks';

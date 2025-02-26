@@ -125,7 +125,11 @@ const ArtistPage: React.FC<ITabbedPageProps> = ({ token, clickLink, updateElemen
             </div>
 
             <div className="container section-container">
-              <ul className="nav nav-tabs">
+              <div className="d-flex flex-row justify-content-between">
+                <h5 className="m-0 section-header">Discography</h5>
+                <p className="m-0 translucent-text"><strong>Show all</strong></p>
+              </div>
+              <ul className="nav nav-tabs mt-3">
                 <li className="nav-item m-1">
                   <div className="nav-link active" ref={popularTabRef} onClick={() => updateAlbums(0)}>Popular Releases</div>
                 </li>
@@ -139,7 +143,7 @@ const ArtistPage: React.FC<ITabbedPageProps> = ({ token, clickLink, updateElemen
 
               <div className="tab-content">
                 <div className="tab-pane fade show active" id="tab">
-                  <div className="container albums-container section-container p-4 d-flex flex-column">
+                  <div className="container albums-container section-container p-4 pt-0 d-flex flex-column">
                     {activeTab}
                   </div>
                 </div>

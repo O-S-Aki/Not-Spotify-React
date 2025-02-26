@@ -30,7 +30,7 @@ const NavbarDropdown: React.FC<INavbarDropdownProps> = ({ user, logout }) => {
         isOpen ? (
           <>
             <div className="navbar_dropdown-container position-absolute">
-              <Link to='/user/profile'>
+              <Link to='/user/current'>
                 <div onClick={toggleDropdown} className="dropdown-section p-2 pb-1 m-1">
                   <p className="m-0"><i className="bi bi-person-fill"></i> Profile</p>
                 </div>
