@@ -93,9 +93,13 @@ export interface IHeaderPanelProps {
     type: string;
   };
   secondary: {
+    isArtist: boolean;
+    id: string;
     name: string;
     image: string;
-  }
-  description: string;
+  };
+  dominantColorRgb: string;
+  description: string | null;
   extras: string[]; 
+  clickLink: (event: React.MouseEvent, url: string) => void;
 }

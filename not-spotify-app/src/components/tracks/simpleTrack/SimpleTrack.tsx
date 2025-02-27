@@ -74,7 +74,7 @@ const SimpleTrack: React.FC<ISimpleTrackProps> = ({ track, index, showImage, sho
               showDate ? (
                 <>
                   <td className="align-middle show-date">
-                    
+                    <p className="m-0 translucent-text">{track.addedAt}</p>
                   </td>
                 </>
               ) : (

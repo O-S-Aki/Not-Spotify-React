@@ -1,7 +1,7 @@
 import { getCredentials } from "../helpers/authenticator";
-import { mapAlbumList, mapArtist, mapTrackList } from "../helpers/apiMappers";
+import { mapAlbumList, mapArtist, mapArtistList, mapTrackList } from "../helpers/apiMappers";
 
-import { IAlbumList, IArtist, ITrackList } from "../helpers/interfaces/objectInterfaces";
+import { IAlbumList, IArtist, IArtistList, ITrackList } from "../helpers/interfaces/objectInterfaces";
 
 import { makeGetRequest } from "./defaults";
 

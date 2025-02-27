@@ -10,6 +10,7 @@ const baseUrl = getCredentials().BaseUrl;
 export const getUserProfile = async (accessToken: string) => {
   try {
     const url = `${baseUrl}/me`;
+
     const response = await makeGetRequest(url, accessToken);
     const fetchedUser = response.data;
 
@@ -82,6 +83,23 @@ export const getPublicPlaylists = async (accessToken: string, userId: string) =>
   }
   catch (error) {
     console.error("Error fetching user's public playlists: ", error);
+    return null;
+  }
+}
+
+// gets a user's profile
+export const getUser = async (accessToken: string, id: string) => {
+  try {
+    const url = `${baseUrl}/users/${id}`;
+
+    const response = await makeGetRequest(url, accessToken);
+    const fetchedUser = response.data;
+
+    const userProfile: IUser = mapUser(fetchedUser)
+    return userProfile;
+  }
+  catch (error) {
+    console.error("Error fetching user profile: ", error);
     return null;
   }
 }

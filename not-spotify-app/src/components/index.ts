@@ -22,3 +22,5 @@ export { default as SimpleAlbum } from './albums/simpleAlbum/SimpleAlbum';
 
 export { default as TracksHead } from './tracks/tracksHead/TracksHead';
 export { default as Popularity } from './popularity/Popularity';
+
+export { default as PlayControls } from './playControls/PlayControls';

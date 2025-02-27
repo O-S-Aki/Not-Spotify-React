@@ -7,7 +7,8 @@ import { ITabbedPageProps } from "../../assets/helpers/interfaces/propsInterface
 import { getDominantColor } from '../../assets/helpers/colorPalette';
 import { IAlbumList, IArtist, ITrackList } from "../../assets/helpers/interfaces/objectInterfaces";
 
-import { getArtistProfile, getPopularTracks, getFullDiscography, getAlbums, getSingles } from "../../assets/api-calls/artist";
+import { getArtistProfile, getPopularTracks, getFullDiscography, 
+  getAlbums, getSingles } from "../../assets/api-calls/artist";
 
 import { Popularity, Tracks, Albums } from '../../components';
 
@@ -141,7 +142,7 @@ const ArtistPage: React.FC<ITabbedPageProps> = ({ token, clickLink, updateElemen
                 </li>
               </ul>
 
-              <div className="tab-content">
+              <div className="tab-content mt-3">
                 <div className="tab-pane fade show active" id="tab">
                   <div className="container albums-container section-container p-4 pt-0 d-flex flex-column">
                     {activeTab}

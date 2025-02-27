@@ -18,6 +18,14 @@
   font-size: small;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
+.page-link {
+  cursor: pointer;
+}
+
 .page-link:hover {
   color: var(--white);
   text-decoration: underline;
