@@ -4,7 +4,7 @@ import { ISimpleArtistProps } from '../../../assets/helpers/interfaces/propsInte
 import '../artists.css';
 
 const SimpleArtist: React.FC<ISimpleArtistProps> = ({ artist, clickLink }) => {
-  const artistURL = `/artist/${artist.id}`;
+  const artistURL: string = `/artist/${artist.id}`;
 
   return (
     <>

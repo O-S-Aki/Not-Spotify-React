@@ -3,7 +3,8 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 
-import { Navbar, UserPage, HomePage, ArtistPage } from './components';
+import { Navbar, UserPage, HomePage, ArtistPage, 
+  AlbumPage, TrackPage, PlaylistPage} from './components';
 
 import { getAuthUrl } from './assets/helpers/authenticator';
 import { getUserProfile } from './assets/api-calls/user';
@@ -82,16 +83,28 @@ const App = () => {
 
       <div className="main">        
         <Routes>
-          <Route path='/' element={<HomePage />} />
-          <Route path='/home' element={<HomePage />} />
+          <Route path='/' element={<UserPage token={accessToken} clickLink={clickLink} />} />
+          <Route path='/home' element={<UserPage token={accessToken} clickLink={clickLink} />} />
 
           <Route path='/user'>
             <Route index element={<UserPage token={accessToken} clickLink={clickLink} />} />
-            <Route path='profile' element={<UserPage token={accessToken} clickLink={clickLink} />} />
+            <Route path='current' element={<UserPage token={accessToken} clickLink={clickLink} />} />
           </Route>
 
           <Route path='/artist'>
             <Route path=':id' element={<ArtistPage token={accessToken} clickLink={clickLink} updateElementClasses={updateElementClasses} />} />
+          </Route>
+
+          <Route path='/album'>
+            <Route path=':id' element={<AlbumPage token={accessToken} clickLink={clickLink} />} />
+          </Route>
+
+          <Route path='/track'>
+            <Route path=':id' element={<TrackPage token={accessToken} clickLink={clickLink} />} />
+          </Route>
+
+          <Route path='/playlist'>
+            <Route path=':id' element={<PlaylistPage token={accessToken} clickLink={clickLink} />} />
           </Route>
         </Routes>
       </div>

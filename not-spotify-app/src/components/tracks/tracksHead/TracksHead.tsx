@@ -7,7 +7,7 @@ const TracksHead: React.FC<ITracksHeadProps> = ({ showAlbum, showDate }) => {
   return (
     <>
       <thead>
-        <tr className="d-flex flex-row justify-content-between">
+        <tr>
 
           <th className="align-middle">
             <div className="d-flex flex-row gap-3 align-middle">
@@ -19,7 +19,7 @@ const TracksHead: React.FC<ITracksHeadProps> = ({ showAlbum, showDate }) => {
           {
             showAlbum ? (
               <>
-                <th className="align-middle">
+                <th className="align-middle show-album">
                   <p className="m-0 translucent-text">Album</p>
                 </th>
               </>
@@ -31,7 +31,7 @@ const TracksHead: React.FC<ITracksHeadProps> = ({ showAlbum, showDate }) => {
           {
             showDate ? (
               <>
-                <th className="align-middle">
+                <th className="align-middle show-date">
                   <p className="m-0 translucent-text">Date Added</p>
                 </th>
               </>
@@ -40,7 +40,7 @@ const TracksHead: React.FC<ITracksHeadProps> = ({ showAlbum, showDate }) => {
             )
           }
 
-          <th className="align-middle">
+          <th className="align-middle d-flex flex-row justify-content-end">
             <div className="d-flex flex-row justify-content-between align-items-center">
               <div className="d-flex flex-row gap-3 align-items-center">
                 <p className="m-0 translucent-text"><i className="bi bi-clock"></i></p>

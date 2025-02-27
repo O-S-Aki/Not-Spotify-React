@@ -10,7 +10,7 @@ const Albums: React.FC<IAlbumsProps> = ({ albums, maxAlbums, clickLink }) => {
     {
       albums && maxAlbums ? (
         <>
-          <div className="album-cards mt-3 row">
+          <div className="album-cards row">
           {
             albums.items.slice(0, maxAlbums).map((album, index) => (
               <SimpleAlbum key={index} album={album} clickLink={clickLink} />

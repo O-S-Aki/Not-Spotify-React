@@ -1,0 +1,12 @@
+.header-panel-image-container img {
+  border-radius: 10px;
+  box-shadow: 0px 0px 2rem rgba(0, 0, 0, 0.7);
+}
+
+.header-panel-image-container div {
+  aspect-ratio: 1/1;
+}
+
+.secondary-image-container {
+  height: 2rem;
+}

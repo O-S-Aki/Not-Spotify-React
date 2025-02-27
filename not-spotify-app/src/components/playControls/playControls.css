@@ -1,0 +1,28 @@
+.primary-button {
+  color: var(--primary);
+  border-radius: 50%;
+  font-size: 4rem;
+}
+
+.secondary-button {
+  color: var(--white);
+  border-radius: 50%;
+  font-size: 2.5rem;
+}
+
+.play-button:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
+
+.play-button:active {
+  border: none;
+}
+
+.primary-button:hover {
+  color: var(--primary);
+}
+
+.secondary-button:hover {
+  color: var(--white);
+}

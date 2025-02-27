@@ -45,3 +45,15 @@
 .track-image-container img {
   border-radius: 5px;
 }
+
+@media (max-width: 767px) {
+  .tracks-table .show-date {
+    display: none;
+  }
+}
+
+@media (max-width: 991px) {
+  .tracks-table .show-album {
+    display: none;
+  }
+}

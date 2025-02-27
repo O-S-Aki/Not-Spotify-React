@@ -4,6 +4,9 @@ import { ISimpleTrackProps } from '../../../assets/helpers/interfaces/propsInter
 import '../tracks.css';
 
 const SimpleTrack: React.FC<ISimpleTrackProps> = ({ track, index, showImage, showAlbum, showDate, clickLink }) => {    
+  const trackURL: string = `/track/${track.id}`;
+  const albumURL: string = `/album/${track.album.id}`;
+
   return (
     <>
     {
@@ -28,7 +31,7 @@ const SimpleTrack: React.FC<ISimpleTrackProps> = ({ track, index, showImage, sho
                 }
 
                 <div>
-                  <h6 className="m-0 page-link">{track.name}</h6>
+                  <h6 onClick={(e) => clickLink(e, trackURL)} className="m-0 page-link">{track.name}</h6>
                   <p className="m-0 translucent-text">
                     {
                       track.isExplicit ? (
@@ -58,8 +61,8 @@ const SimpleTrack: React.FC<ISimpleTrackProps> = ({ track, index, showImage, sho
             {
               showAlbum ? (
                 <>
-                  <td className="align-middle">
-                    <p className="m-0 translucent-text page-link">{track.album.name}</p>
+                  <td className="align-middle show-album">
+                    <p onClick={(e) => clickLink(e, albumURL)} className="m-0 translucent-text page-link">{track.album.name}</p>
                   </td>
                 </>
               ) : (
@@ -70,8 +73,8 @@ const SimpleTrack: React.FC<ISimpleTrackProps> = ({ track, index, showImage, sho
             {
               showDate ? (
                 <>
-                  <td className="align-middle">
-                    
+                  <td className="align-middle show-date">
+                    <p className="m-0 translucent-text">{track.addedAt}</p>
                   </td>
                 </>
               ) : (

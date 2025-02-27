@@ -71,7 +71,7 @@ export interface ISimpleTrack {
   album: ISimpleAlbum;
   isExplicit: boolean;
   duration: string;
-  addedAt: string;
+  addedAt?: string | null;
 }
 
 export interface ITrackList {
@@ -100,4 +100,18 @@ export interface ISimplePlaylist {
 export interface IPlaylistList {
   items: ISimplePlaylist[];
   total: number;
+}
+
+export interface IPlaylistTracks {
+  tracks: ITrackList;
+  duration: string;
+}
+
+/* --------------- EXTRAS --------------- */
+export interface ITime {
+  seconds: number;
+  minutes: number;
+  hours: number;
+  remainingSeconds: number;
+  remainingMinutes: number;
 }

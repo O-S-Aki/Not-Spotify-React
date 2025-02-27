@@ -3,7 +3,9 @@ import { IArtist, ISimpleArtist, IArtistList } from "./interfaces/objectInterfac
 import { IAlbum, ISimpleAlbum, IAlbumList } from "./interfaces/objectInterfaces";
 import { ITrack, ISimpleTrack, ITrackList } from "./interfaces/objectInterfaces";
 import { IPlaylist, ISimplePlaylist, IPlaylistList } from "./interfaces/objectInterfaces";
+import { ITime } from "./interfaces/objectInterfaces";
 
+import { format, formatDistanceToNow, isToday, isYesterday } from 'date-fns';
 
 /* --------------- USER --------------- */
 
@@ -79,10 +81,10 @@ export const mapArtistList = (fetchedArtists: any): IArtistList => {
 export const mapAlbum = (fetchedAlbum: any): IAlbum => {
   const album: IAlbum = {
     primary: mapSimpleAlbum(fetchedAlbum),
-    tracks: mapTrackList(fetchedAlbum.tracks),
+    tracks: mapTrackList(fetchedAlbum.tracks, mapSimpleAlbum(fetchedAlbum)),
     duration: getTotalDuration(fetchedAlbum.tracks),
     popularity: fetchedAlbum.popularity,
-    artists: mapArtistList(fetchedAlbum.artist),
+    artists: mapArtistList(fetchedAlbum.artists),
     copyright: fetchedAlbum.copyrights?.[0]?.text || ""
   };
 
@@ -134,25 +136,27 @@ export const mapTrack = (fetchedTrack: any): ITrack => {
 }
 
 // maps a simple track API response into a strongly typed object
-export const mapSimpleTrack = (fetchedTrack: any): ISimpleTrack => {
+export const mapSimpleTrack = (fetchedTrack: any, parentAlbum?: ISimpleAlbum): ISimpleTrack => {
+  const trackObj = fetchedTrack.track ? fetchedTrack.track : fetchedTrack;
+
   const track: ISimpleTrack = {
-    id: fetchedTrack.id,
-    name: fetchedTrack.name,
-    image: fetchedTrack.album?.images?.[0]?.url || "",
-    trackNumber: fetchedTrack.track_number,
-    artists: mapArtistList(fetchedTrack.artists),
-    type: capitalizeFirst(fetchedTrack.type),
-    album: mapSimpleAlbum(fetchedTrack.album),
-    isExplicit: fetchedTrack.explicit,
-    duration: formatDuration(fetchedTrack.duration_ms),
-    addedAt: fetchedTrack.addedAt || "",
+    id: trackObj.id,
+    name: trackObj.name,
+    image: trackObj.album?.images?.[0]?.url || "",
+    trackNumber: trackObj.track_number,
+    artists: mapArtistList(trackObj.artists),
+    type: capitalizeFirst(trackObj.type),
+    album: parentAlbum? parentAlbum : mapSimpleAlbum(trackObj.album),
+    isExplicit: trackObj.explicit,
+    duration: formatDuration(trackObj.duration_ms),
+    addedAt: fetchedTrack.added_at ? formatAddedAtDate(fetchedTrack.added_at) : null
   };
 
   return track;
 }
 
 // maps a track list API response into a strongly typed object
-export const mapTrackList = (fetchedTracks: any): ITrackList => {
+export const mapTrackList = (fetchedTracks: any, parentAlbum?: ISimpleAlbum): ITrackList => {
   let trackList: ITrackList = {
     items: [],
     total: 0,
@@ -161,7 +165,7 @@ export const mapTrackList = (fetchedTracks: any): ITrackList => {
   let list: any = fetchedTracks.items ? fetchedTracks.items : fetchedTracks;
 
   list.forEach((fetchedTrack: any) => {
-    const track = mapSimpleTrack(fetchedTrack);
+    const track = parentAlbum? mapSimpleTrack(fetchedTrack, parentAlbum) : mapSimpleTrack(fetchedTrack);
     trackList.items.push(track);
     trackList.total ++;
   });
@@ -177,7 +181,7 @@ export const mapPlaylist = (fetchedPlaylist: any): IPlaylist => {
     description: fetchedPlaylist.description || "",
     followers: fetchedPlaylist.followers?.total || 0,
     tracks: mapTrackList(fetchedPlaylist.tracks),
-    duration: getTotalDuration(fetchedPlaylist.tracks),
+    duration: getTotalDuration(fetchedPlaylist.tracks)
   }
 
   return playlist;
@@ -224,17 +228,28 @@ export const capitalizeFirst = (str: string): string => {
 
 // formats a millisecond duration into m:ss or h:mm:ss format
 export const formatDuration = (milliseconds: number): string => {
-  const seconds = Math.floor(milliseconds / 1000);
-  const minutes = Math.floor(seconds / 60);
-  const hours = Math.floor(minutes / 60);
+  const time: ITime = getTimeFromMilliseconds(milliseconds);
 
-  const remainingSeconds = seconds % 60;
-  const remainingMinutes = minutes % 60;
+  if (time.hours > 0) {
+    return `${time.hours}:${time.remainingMinutes.toString().padStart(2, "0")}:${time.remainingSeconds.toString().padStart(2, "0")}`;
+  }
+  else {
+    return `${time.minutes}:${time.remainingSeconds.toString().padStart(2, "0")}`;
+  }
+}
 
-  if (hours > 0) {
-    return `${hours}:${remainingMinutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
-  } else {
-    return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
+// formats a millisecond duration into [x hr, x min] or [x min, x sec] format
+export const formatDurationLong = (milliseconds: number): string => {
+  const time: ITime = getTimeFromMilliseconds(milliseconds);
+
+  if (time.hours > 0) {
+    return `${time.hours} hr, ${time.remainingMinutes} min`;
+  }
+  else if (time.minutes > 0) {
+    return `${time.minutes} min, ${time.remainingSeconds} sec`;
+  }
+  else {
+    return `${time.seconds} sec`
   }
 }
 
@@ -247,7 +262,7 @@ export const getTotalDuration = (tracks: any): string => {
     totalDuration += track.duration_ms ? track.duration_ms : 0;
   }
   
-  return formatDuration(totalDuration);
+  return formatDurationLong(totalDuration);
 }
 
 // formats a release date depending on its precision
@@ -273,3 +288,31 @@ export const formatReleaseDate = (releaseDate: string, precision: "year" | "mont
 export const getYear = (dateString: string): string => {
   return dateString.slice(0, 4);
 }
+
+// converts a time in milliseconds to a time object
+export const getTimeFromMilliseconds = (milliseconds: number): ITime => {
+  const seconds = Math.floor(milliseconds / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+
+  const remainingSeconds = seconds % 60;
+  const remainingMinutes = minutes % 60;
+
+  const time: ITime = { seconds, minutes, hours, remainingSeconds, remainingMinutes };
+  return time;
+}
+
+// converts a datetime object into a readable format
+const formatAddedAtDate = (dateString: string | Date): string => {
+  const date = new Date(dateString);
+
+  if (isToday(date)) {
+    return "Today";
+  } else if (isYesterday(date)) {
+    return "Yesterday";
+  } else if (Date.now() - date.getTime() < 1000 * 60 * 60 * 24 * 7) {
+    return formatDistanceToNow(date, { addSuffix: true });
+  } else {
+    return format(date, "d MMM yyyy");
+  }
+};
