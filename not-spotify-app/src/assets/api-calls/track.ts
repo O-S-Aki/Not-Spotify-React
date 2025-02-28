@@ -1,9 +1,10 @@
 import { getCredentials } from "../helpers/authenticator";
-import { getTotalDuration, mapTrack, mapTrackList } from "../helpers/apiMappers";
+import { mapTrack, mapTrackList } from "../helpers/apiMappers";
 
 import { IPlaylistTracks, ITrack, ITrackList } from "../helpers/interfaces/objectInterfaces";
 
 import { makeGetRequest } from "./defaults";
+import { getTotalDuration } from "../helpers/miscHelpers";
 
 const baseUrl = getCredentials().BaseUrl;
 

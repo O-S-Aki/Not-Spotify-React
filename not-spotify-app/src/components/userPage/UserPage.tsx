@@ -86,16 +86,16 @@ const UserPage: React.FC<IPageProps> = ({ token, clickLink }) => {
               <h5 className="m-0 section-header">Top artists this month</h5>
               <div className="d-flex flex-row justify-content-between">
                 <p className="m-0 translucent-text">Only visible to you</p>
-                <p className="m-0 translucent-text"><strong>Show all</strong></p>
+                <p onClick={(e) => clickLink(e, '/user/top-artists')} className="m-0 translucent-text page-link"><strong>Show all</strong></p>
               </div>
-              <Artists artists={topArtists} maxArtists={6} clickLink={clickLink} />
+              <Artists artists={topArtists} cardClass='responsive-card' maxArtists={6} clickLink={clickLink} />
             </div>
 
             <div className="container tracks-container section-container mt-3 p-4 d-flex flex-column">
               <h5 className="m-0 section-header">Top tracks this month</h5>
               <div className="d-flex flex-row justify-content-between">
                 <p className="m-0 translucent-text">Only visible to you</p>
-                <p className="m-0 translucent-text"><strong>Show all</strong></p>
+                <p onClick={(e) => clickLink(e, 'user/top-tracks')} className="m-0 translucent-text page-link"><strong>Show all</strong></p>
               </div>
               <div className="mt-3">
                 <Tracks tracks={topTracks} maxTracks={5} showHead={false} showImage={true} showAlbum={true} showDate={false} clickLink={clickLink} />
@@ -105,7 +105,7 @@ const UserPage: React.FC<IPageProps> = ({ token, clickLink }) => {
             <div className="container playlists-container section-container mt-3 p-4 d-flex flex-column">
               <div className="d-flex flex-row justify-content-between">
                 <h5 className="m-0 section-header">Public Playlists</h5>
-                <p className="m-0 translucent-text"><strong>Show all</strong></p>
+                <p className="m-0 translucent-text page-link"><strong>Show all</strong></p>
               </div>
               <Playlists playlists={publicPlaylists} maxPlaylists={6} clickLink={clickLink} />
             </div>

@@ -1,5 +1,5 @@
 import { getCredentials } from "../helpers/authenticator";
-import { getTotalDuration, mapPlaylist, mapTrack } from "../helpers/apiMappers";
+import { mapPlaylist } from "../helpers/apiMappers";
 import { getTrackList } from "./track";
 
 import { IPlaylist, IPlaylistTracks } from "../helpers/interfaces/objectInterfaces";

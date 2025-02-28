@@ -5,6 +5,10 @@ export { default as AlbumPage } from './albumPage/AlbumPage';
 export { default as TrackPage } from './trackPage/TrackPage';
 export { default as PlaylistPage } from './playlistPage/PlaylistPage';
 
+export { default as ArtistsGrid } from './artists/artistsGrid/ArtistsGrid';
+export { default as TracksGrid } from './tracks/tracksGrid/TracksGrid';
+export { default as PlaylistGrid } from './playlists/playlistGrid/PlaylistGrid';
+
 export { default as Navbar } from './navbar/Navbar';
 export { default as NavbarDropdown } from './navbar/navbarDropdown/NavbarDropdown';
 

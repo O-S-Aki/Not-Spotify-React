@@ -57,3 +57,13 @@
     display: none;
   }
 }
+
+.table-column {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.min-width {
+  min-width: 150px;
+}

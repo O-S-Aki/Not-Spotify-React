@@ -4,9 +4,15 @@ import { IPopularityProps } from '../../assets/helpers/interfaces/propsInterface
 import './popularity.css';
 
 const Popularity: React.FC<IPopularityProps> = ({ score }) => {
-  const filledStars = Math.floor(score / 10);
-  const halfStar = score % 10 >= 5 ? true : false;
-  const emptyStars = 10 - (filledStars + (halfStar ? 1 : 0));
+  const convertScoreToStars = (score: number): number => {
+    return Math.floor(score / 10) * 0.5 + 0.5;
+  };
+
+  const stars = convertScoreToStars(score);
+
+  const filledStars = Math.floor(stars);
+  const halfStar = filledStars < 5 && stars % 2 === 1;
+  const emptyStars = 5 - (filledStars + (halfStar ? 1 : 0));
 
   return (
     <>

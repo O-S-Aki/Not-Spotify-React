@@ -3,7 +3,7 @@ import { ISimpleArtistProps } from '../../../assets/helpers/interfaces/propsInte
 
 import '../artists.css';
 
-const SimpleArtist: React.FC<ISimpleArtistProps> = ({ artist, clickLink }) => {
+const SimpleArtist: React.FC<ISimpleArtistProps> = ({ artist, cardClass, clickLink }) => {
   const artistURL: string = `/artist/${artist.id}`;
 
   return (
@@ -11,7 +11,7 @@ const SimpleArtist: React.FC<ISimpleArtistProps> = ({ artist, clickLink }) => {
     {
       artist ? (
         <>
-          <div onClick={(e) => clickLink(e, artistURL)} className="artist-card responsive-card col-6 col-sm-4 col-md-3 col-lg-2 p-3">
+          <div onClick={(e) => clickLink(e, artistURL)} className={`artist-card ${cardClass} col-6 col-sm-4 col-md-3 col-lg-2 p-3`}>
               <div className="artist-image-container section-image-container square-container round w-100">
                 <img src={artist.image} alt={artist.name} className="w-100 h-100 square round" />
               </div>

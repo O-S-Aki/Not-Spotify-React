@@ -21,8 +21,8 @@ const SimpleTrack: React.FC<ISimpleTrackProps> = ({ track, index, showImage, sho
                 {
                   showImage ? (
                     <>
-                      <div className="track-image-container section-image-container">
-                        <img src={track.image} alt={track.name} className='h-100' />
+                      <div className="track-image-container section-image-container square-container">
+                        <img src={track.image} alt={track.name} className='h-100 w-100 square' />
                       </div>
                     </>
                   ) : (
@@ -62,7 +62,9 @@ const SimpleTrack: React.FC<ISimpleTrackProps> = ({ track, index, showImage, sho
               showAlbum ? (
                 <>
                   <td className="align-middle show-album">
-                    <p onClick={(e) => clickLink(e, albumURL)} className="m-0 translucent-text page-link">{track.album.name}</p>
+                    <div className="d-flex flex-row gap-3 align-items-center">
+                      <p onClick={(e) => clickLink(e, albumURL)} className="m-0 translucent-text page-link">{track.album.name}</p>
+                    </div>
                   </td>
                 </>
               ) : (
@@ -73,7 +75,7 @@ const SimpleTrack: React.FC<ISimpleTrackProps> = ({ track, index, showImage, sho
             {
               showDate ? (
                 <>
-                  <td className="align-middle show-date">
+                  <td className="align-middle show-date min-width">
                     <p className="m-0 translucent-text">{track.addedAt}</p>
                   </td>
                 </>

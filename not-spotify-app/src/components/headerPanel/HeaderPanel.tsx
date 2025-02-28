@@ -1,10 +1,5 @@
 import React from "react";
-
-import { useState, useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
-
-import { IHeaderPanelProps, IPageProps } from "../../assets/helpers/interfaces/propsInterfaces";
-import { getDominantColor } from '../../assets/helpers/colorPalette';
+import { IHeaderPanelProps } from "../../assets/helpers/interfaces/propsInterfaces";
 
 import './headerPanel.css';
 

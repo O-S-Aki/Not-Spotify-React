@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import { Navbar, UserPage, HomePage, ArtistPage, 
-  AlbumPage, TrackPage, PlaylistPage} from './components';
+  AlbumPage, TrackPage, PlaylistPage,
+  ArtistsGrid, TracksGrid} from './components';
 
 import { getAuthUrl } from './assets/helpers/authenticator';
 import { getUserProfile } from './assets/api-calls/user';
@@ -89,6 +90,8 @@ const App = () => {
           <Route path='/user'>
             <Route index element={<UserPage token={accessToken} clickLink={clickLink} />} />
             <Route path='current' element={<UserPage token={accessToken} clickLink={clickLink} />} />
+            <Route path='top-artists' element={<ArtistsGrid token={accessToken} clickLink={clickLink} />} />
+            <Route path='top-tracks' element={<TracksGrid token={accessToken} clickLink={clickLink} />} />
           </Route>
 
           <Route path='/artist'>

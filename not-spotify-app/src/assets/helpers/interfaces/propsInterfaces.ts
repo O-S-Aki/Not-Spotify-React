@@ -2,6 +2,8 @@ import { IUser, IArtistList, ISimpleArtist,
   ITrackList, ISimpleTrack, IPlaylistList, 
   ISimplePlaylist, ISimpleAlbum, IAlbumList } from "./objectInterfaces";
 
+import { ItemType } from "./enumerations";
+
 export interface IPageProps {
   token: string | null;
   clickLink: (event: React.MouseEvent, url: string) => void;
@@ -11,6 +13,12 @@ export interface ITabbedPageProps {
   token: string | null;
   clickLink: (event: React.MouseEvent, url: string) => void;
   updateElementClasses: (element: HTMLElement | null, add: boolean, classes: string[]) => void;
+}
+
+export interface IItemsPageProps {
+  token: string | null;
+  itemType: ItemType;
+  clickLink: (event: React.MouseEvent, url: string) => void;
 }
 
 export interface INavbarProps {
@@ -27,12 +35,14 @@ export interface INavbarDropdownProps {
 
 export interface IArtistsProps {
   artists: IArtistList;
+  cardClass: string;
   maxArtists: number;
   clickLink: (event: React.MouseEvent, url: string) => void;
 }
 
 export interface ISimpleArtistProps {
   artist: ISimpleArtist;
+  cardClass: string;
   clickLink: (event: React.MouseEvent, url: string) => void;
 }
 
