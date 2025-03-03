@@ -105,7 +105,7 @@ const UserPage: React.FC<IPageProps> = ({ token, clickLink }) => {
             <div className="container playlists-container section-container mt-3 p-4 d-flex flex-column">
               <div className="d-flex flex-row justify-content-between">
                 <h5 className="m-0 section-header">Public Playlists</h5>
-                <p className="m-0 translucent-text page-link"><strong>Show all</strong></p>
+                <p onClick={(e) => clickLink(e, `user/${user.primary.id}/public-playlists`)} className="m-0 translucent-text page-link"><strong>Show all</strong></p>
               </div>
               <Playlists playlists={publicPlaylists} maxPlaylists={6} clickLink={clickLink} />
             </div>

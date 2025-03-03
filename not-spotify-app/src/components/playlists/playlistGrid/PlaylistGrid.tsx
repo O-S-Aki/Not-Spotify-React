@@ -23,6 +23,7 @@ const PlaylistGrid: React.FC<IPageProps> = ({ token, clickLink }) => {
         // fetching all artists
         const playlistList: IPlaylistList | null = await getAllPublicPlaylists(accessToken, id);
         if (playlistList) {
+          console.log(playlistList);
           setPlaylists(playlistList);
         }
       }
@@ -34,10 +35,12 @@ const PlaylistGrid: React.FC<IPageProps> = ({ token, clickLink }) => {
   return (
     <>
     {
+      /* Must add the cardClass property to the Playlists component and the SimplePlaylist compoent to stop the responsive-card class rendering */
       playlists ? (
         <>
           <div className="app-page">
             <div className="container playlists-container section-container px-4 d-flex flex-column">
+              <h2 className="mb-4"><i onClick={(e) => clickLink(e, 'user')} className="bi-chevron-left pointer"></i></h2>
               <div className="d-flex flex-row justify-content-between">
                 <h5 className="m-0 section-header">Public Playlists</h5>
               </div>

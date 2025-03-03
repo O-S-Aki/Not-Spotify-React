@@ -153,7 +153,8 @@ export const getPublicPlaylists = async (accessToken: string, userId: string, li
 export const getAllPublicPlaylists = async (accessToken: string, userId: string) => {
   try {
     const limit = getTotal(await getPublicPlaylists(accessToken, userId));
-    return await getPublicPlaylists(accessToken, userId, limit);
+    const playlists = await getPublicPlaylists(accessToken, userId, limit);    
+    return playlists;
   }
   catch (error) {
     console.error("Error fetching all public playlists: ", error);
