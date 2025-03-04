@@ -3,14 +3,12 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 
-import { Navbar, UserPage, HomePage, ArtistPage, 
-  AlbumPage, TrackPage, PlaylistPage,
-  ArtistsGrid, TracksGrid,
-  PlaylistGrid} from './components';
+import { UserPage, HomePage, ArtistPage, AlbumPage, TrackPage, PlaylistPage } from './pages';
+import { Navbar, ArtistsGrid, TracksGrid, PlaylistGrid } from './components';
 
-import { getAuthUrl } from './assets/helpers/authenticator';
-import { getUserProfile } from './assets/api-calls/user';
-import { IUser } from './assets/helpers/interfaces/objectInterfaces';
+import { getAuthUrl } from './code-files/helpers/authenticator';
+import { getUserProfile } from './code-files/api-calls/user';
+import { IUser } from './code-files/helpers/interfaces/objectInterfaces';
 
 import './App.css';
 
@@ -80,7 +78,7 @@ const App = () => {
     <div className="app d-flex flex-column">
 
       <header>
-        <Navbar token={accessToken} authUrl={authUrl} user={user} logout={logout} />
+        <Navbar token={accessToken} authUrl={authUrl} user={user} logout={logout} clickLink={clickLink} />
       </header>
 
       <div className="main">        

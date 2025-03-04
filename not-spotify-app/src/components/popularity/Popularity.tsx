@@ -1,5 +1,5 @@
 import React from 'react';
-import { IPopularityProps } from '../../assets/helpers/interfaces/propsInterfaces';
+import { IPopularityProps } from '../../code-files/helpers/interfaces/propsInterfaces';
 
 import './popularity.css';
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { IHeaderPanelProps } from "../../assets/helpers/interfaces/propsInterfaces";
+import { IHeaderPanelProps } from "../../code-files/helpers/interfaces/propsInterfaces";
 
 import './headerPanel.css';
 

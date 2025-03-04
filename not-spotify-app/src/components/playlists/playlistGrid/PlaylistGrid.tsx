@@ -3,10 +3,10 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { IPageProps } from '../../../assets/helpers/interfaces/propsInterfaces';
-import { IPlaylistList } from '../../../assets/helpers/interfaces/objectInterfaces';
+import { IPageProps } from '../../../code-files/helpers/interfaces/propsInterfaces';
+import { IPlaylistList } from '../../../code-files/helpers/interfaces/objectInterfaces';
 
-import { getAllPublicPlaylists } from '../../../assets/api-calls/user';
+import { getAllPublicPlaylists } from '../../../code-files/api-calls/user';
 
 import { Playlists } from '../../../components'
 
@@ -44,7 +44,7 @@ const PlaylistGrid: React.FC<IPageProps> = ({ token, clickLink }) => {
               <div className="d-flex flex-row justify-content-between">
                 <h5 className="m-0 section-header">Public Playlists</h5>
               </div>
-              <Playlists playlists={playlists} maxPlaylists={playlists.total} clickLink={clickLink} />
+              <Playlists playlists={playlists} responsive={false} maxPlaylists={playlists.total} clickLink={clickLink} />
             </div>
           </div>
         </>

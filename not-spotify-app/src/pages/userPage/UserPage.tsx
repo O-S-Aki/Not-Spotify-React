@@ -1,11 +1,11 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-import { IPageProps } from '../../assets/helpers/interfaces/propsInterfaces';
-import { IArtistList, IPlaylistList, ITrackList, IUser } from '../../assets/helpers/interfaces/objectInterfaces';
+import { IPageProps } from '../../code-files/helpers/interfaces/propsInterfaces';
+import { IArtistList, IPlaylistList, ITrackList, IUser } from '../../code-files/helpers/interfaces/objectInterfaces';
 
-import { getDominantColor } from '../../assets/helpers/colorPalette';
-import { getUserProfile, getTopArtists, getTopTracks, getPublicPlaylists } from '../../assets/api-calls/user';
+import { getDominantColor } from '../../code-files/helpers/colorPalette';
+import { getUserProfile, getTopArtists, getTopTracks, getPublicPlaylists } from '../../code-files/api-calls/user';
 
 import { Artists, Tracks, Playlists } from '../../components'
 
@@ -88,7 +88,7 @@ const UserPage: React.FC<IPageProps> = ({ token, clickLink }) => {
                 <p className="m-0 translucent-text">Only visible to you</p>
                 <p onClick={(e) => clickLink(e, '/user/top-artists')} className="m-0 translucent-text page-link"><strong>Show all</strong></p>
               </div>
-              <Artists artists={topArtists} cardClass='responsive-card' maxArtists={6} clickLink={clickLink} />
+              <Artists artists={topArtists} responsive={true} maxArtists={6} clickLink={clickLink} />
             </div>
 
             <div className="container tracks-container section-container mt-3 p-4 d-flex flex-column">
@@ -107,7 +107,7 @@ const UserPage: React.FC<IPageProps> = ({ token, clickLink }) => {
                 <h5 className="m-0 section-header">Public Playlists</h5>
                 <p onClick={(e) => clickLink(e, `user/${user.primary.id}/public-playlists`)} className="m-0 translucent-text page-link"><strong>Show all</strong></p>
               </div>
-              <Playlists playlists={publicPlaylists} maxPlaylists={6} clickLink={clickLink} />
+              <Playlists playlists={publicPlaylists} responsive={true} maxPlaylists={6} clickLink={clickLink} />
             </div>
           </div>
         </>

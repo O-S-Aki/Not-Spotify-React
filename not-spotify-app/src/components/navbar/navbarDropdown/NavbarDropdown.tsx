@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { INavbarDropdownProps } from '../../../assets/helpers/interfaces/propsInterfaces';
+import { INavbarDropdownProps } from '../../../code-files/helpers/interfaces/propsInterfaces';
 
 import '../navbar.css'
 

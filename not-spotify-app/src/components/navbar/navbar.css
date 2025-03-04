@@ -4,7 +4,6 @@
 
 .navbar-image {
   height: 2.5rem;
-  border-radius: 50%;
   color: var(--white);
   transition: transform 0.3s;
 }
@@ -15,6 +14,10 @@
   max-width: fit-content;
   cursor: pointer;
   align-self:flex-end;
+}
+
+.navbar_profile-image-container img {
+  border-radius: 50%;
 }
 
 .navbar_profile-image-container img:hover {

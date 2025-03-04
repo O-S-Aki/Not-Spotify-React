@@ -1,0 +1,10 @@
+.search-bar {
+  height: 2.5rem;
+}
+
+.search-home-button {
+  background-color: var(--light-gray);
+  font-size: 1.5rem;
+  border-radius: 50%;
+}
+

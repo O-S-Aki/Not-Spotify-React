@@ -2,10 +2,10 @@ import React from 'react';
 
 import { useState, useEffect } from 'react';
 
-import { IPageProps } from '../../../assets/helpers/interfaces/propsInterfaces';
-import { ITrackList } from '../../../assets/helpers/interfaces/objectInterfaces';
+import { IPageProps } from '../../../code-files/helpers/interfaces/propsInterfaces';
+import { ITrackList } from '../../../code-files/helpers/interfaces/objectInterfaces';
 
-import { getAllTopTracks } from '../../../assets/api-calls/user';
+import { getAllTopTracks } from '../../../code-files/api-calls/user';
 
 import { Tracks } from '../../../components'
 

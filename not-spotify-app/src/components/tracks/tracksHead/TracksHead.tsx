@@ -1,5 +1,5 @@
 import React from 'react';
-import { ITracksHeadProps } from '../../../assets/helpers/interfaces/propsInterfaces';
+import { ITracksHeadProps } from '../../../code-files/helpers/interfaces/propsInterfaces';
 
 import '../tracks.css';
 

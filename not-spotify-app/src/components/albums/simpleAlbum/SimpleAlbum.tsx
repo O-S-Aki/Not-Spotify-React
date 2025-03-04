@@ -1,5 +1,5 @@
 import React from 'react';
-import { ISimpleAlbumProps } from '../../../assets/helpers/interfaces/propsInterfaces';
+import { ISimpleAlbumProps } from '../../../code-files/helpers/interfaces/propsInterfaces';
 
 import '../albums.css';
 

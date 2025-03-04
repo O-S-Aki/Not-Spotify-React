@@ -24,8 +24,9 @@ export interface IItemsPageProps {
 export interface INavbarProps {
   token: string | null;
   authUrl: string;
-  logout: () => void;
   user: IUser;
+  logout: () => void;
+  clickLink: (event: React.MouseEvent, url: string) => void;
 }
 
 export interface INavbarDropdownProps {
@@ -35,14 +36,14 @@ export interface INavbarDropdownProps {
 
 export interface IArtistsProps {
   artists: IArtistList;
-  cardClass: string;
+  responsive: boolean;
   maxArtists: number;
   clickLink: (event: React.MouseEvent, url: string) => void;
 }
 
 export interface ISimpleArtistProps {
   artist: ISimpleArtist;
-  cardClass: string;
+  responsive: boolean;
   clickLink: (event: React.MouseEvent, url: string) => void;
 }
 
@@ -72,12 +73,14 @@ export interface ITracksHeadProps {
 
 export interface IPlaylistsProps {
   playlists: IPlaylistList;
+  responsive: boolean;
   maxPlaylists: number;
   clickLink: (event: React.MouseEvent, url: string) => void;
 }
 
 export interface ISimplePlaylistProps {
   playlist: ISimplePlaylist;
+  responsive: boolean;
   clickLink: (event: React.MouseEvent, url: string) => void;
 }
 

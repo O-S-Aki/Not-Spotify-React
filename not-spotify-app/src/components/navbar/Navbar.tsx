@@ -1,28 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { NavbarDropdown } from '../../components';
-import { INavbarProps } from '../../assets/helpers/interfaces/propsInterfaces';
+import { NavbarDropdown, SearchBar } from '../../components';
+import { INavbarProps } from '../../code-files/helpers/interfaces/propsInterfaces';
 
-import SpotifyIcon from '../../assets/images/spotify-icon-white.svg';
+import SpotifyIcon from '../../assets/spotify-full-logo-white.svg';
 
 import './navbar.css';
 
-const Navbar: React.FC<INavbarProps> = ({ token, authUrl, user, logout }) => {
+const Navbar: React.FC<INavbarProps> = ({ token, authUrl, user, logout, clickLink }) => {
   return (
     <nav className="navbar navbar-expand-sm navbar-dark p-3">
-      <div className="container-fluid">
+      <div className="container-fluid d-flex justify-content-between">
         <Link className="navbar-brand m-0" to="/">
           <img src={SpotifyIcon} alt="Application icon" className="navbar-image" />
         </Link>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
 
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ">
-          </ul>
+        <SearchBar token={null} clickLink={clickLink} />
 
-          <div className="navbar_profile-container ms-auto position-relative">
+        <div className="navbar_profile-container position-relative">
             {
               token ? (
                 <>
@@ -43,7 +38,6 @@ const Navbar: React.FC<INavbarProps> = ({ token, authUrl, user, logout }) => {
               )
             }
           </div>
-        </div>
       </div>
     </nav>
   )

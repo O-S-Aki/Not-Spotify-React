@@ -1,12 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-import { IArtistsProps } from '../../assets/helpers/interfaces/propsInterfaces';
+import { IArtistsProps } from '../../code-files/helpers/interfaces/propsInterfaces';
 import { SimpleArtist } from '../../components';
 
 import './artists.css';
 
-const Artists: React.FC<IArtistsProps> = ({ artists, cardClass, maxArtists, clickLink }) => {
+const Artists: React.FC<IArtistsProps> = ({ artists, responsive, maxArtists, clickLink }) => {
   return (
     <>
     {
@@ -15,7 +14,7 @@ const Artists: React.FC<IArtistsProps> = ({ artists, cardClass, maxArtists, clic
           <div className="artist-cards mt-3 row">
           {
             artists.items.slice(0, maxArtists).map((artist, index) => (
-              <SimpleArtist key={index} artist={artist} cardClass={cardClass} clickLink={clickLink} />
+              <SimpleArtist key={index} artist={artist} responsive={responsive} clickLink={clickLink} />
             ))
           }
           </div>

@@ -3,12 +3,12 @@ import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 
-import { ITabbedPageProps } from "../../assets/helpers/interfaces/propsInterfaces";
-import { getDominantColor } from '../../assets/helpers/colorPalette';
-import { IAlbumList, IArtist, ITrackList } from "../../assets/helpers/interfaces/objectInterfaces";
+import { ITabbedPageProps } from "../../code-files/helpers/interfaces/propsInterfaces";
+import { getDominantColor } from '../../code-files/helpers/colorPalette';
+import { IAlbumList, IArtist, ITrackList } from "../../code-files/helpers/interfaces/objectInterfaces";
 
 import { getArtistProfile, getPopularTracks, getFullDiscography, 
-  getAlbums, getSingles } from "../../assets/api-calls/artist";
+  getAlbums, getSingles } from "../../code-files/api-calls/artist";
 
 import { Popularity, Tracks, Albums } from '../../components';
 

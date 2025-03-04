@@ -2,10 +2,10 @@ import React from 'react';
 
 import { useState, useEffect } from 'react';
 
-import { IPageProps } from '../../../assets/helpers/interfaces/propsInterfaces';
-import { IArtistList } from '../../../assets/helpers/interfaces/objectInterfaces';
+import { IPageProps } from '../../../code-files/helpers/interfaces/propsInterfaces';
+import { IArtistList } from '../../../code-files/helpers/interfaces/objectInterfaces';
 
-import { getAllTopArtists } from '../../../assets/api-calls/user';
+import { getAllTopArtists } from '../../../code-files/api-calls/user';
 
 import { Artists } from '../../../components'
 
@@ -39,7 +39,7 @@ const ArtistsGrid: React.FC<IPageProps> = ({ token, clickLink }) => {
               <h2 className="mb-4"><i onClick={(e) => clickLink(e, 'user')} className="bi-chevron-left pointer"></i></h2>
               <h5 className="m-0 section-header">Top artists this month</h5>
               <p className="m-0 translucent-text">Only visible to you</p>
-              <Artists artists={artists} cardClass='' maxArtists={artists.total} clickLink={clickLink} />
+              <Artists artists={artists} responsive={false} maxArtists={artists.total} clickLink={clickLink} />
             </div>
           </div>
         </>

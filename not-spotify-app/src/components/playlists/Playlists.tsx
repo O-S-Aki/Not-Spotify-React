@@ -1,10 +1,10 @@
 import React from 'react';
-import { IPlaylistsProps } from '../../assets/helpers/interfaces/propsInterfaces';
+import { IPlaylistsProps } from '../../code-files/helpers/interfaces/propsInterfaces';
 import { SimplePlaylist } from '../../components';
 
 import './playlists.css';
 
-const Playlists: React.FC<IPlaylistsProps> = ({ playlists, maxPlaylists, clickLink }) => {
+const Playlists: React.FC<IPlaylistsProps> = ({ playlists, responsive, maxPlaylists, clickLink }) => {
   return (
     <>
     {
@@ -13,7 +13,7 @@ const Playlists: React.FC<IPlaylistsProps> = ({ playlists, maxPlaylists, clickLi
           <div className="playlist-cards mt-3 row">
           {
             playlists.items.slice(0, maxPlaylists).map((playlist, index) => (
-              <SimplePlaylist key={index} playlist={playlist} clickLink={clickLink} />
+              <SimplePlaylist key={index} responsive={responsive} playlist={playlist} clickLink={clickLink} />
             ))
           }
           </div>
