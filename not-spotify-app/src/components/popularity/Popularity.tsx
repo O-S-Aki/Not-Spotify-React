@@ -1,7 +1,10 @@
 import React from 'react';
-import { IPopularityProps } from '../../code-files/helpers/interfaces/propsInterfaces';
 
 import './popularity.css';
+
+interface IPopularityProps {
+  score: number;
+}
 
 const Popularity: React.FC<IPopularityProps> = ({ score }) => {
   const convertScoreToStars = (score: number): number => {

@@ -1,11 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { NavbarDropdown, SearchBar } from '../../components';
-import { INavbarProps } from '../../code-files/helpers/interfaces/propsInterfaces';
+import { IUser } from '../../code-files/interfaces/';
 
-import SpotifyIcon from '../../assets/spotify-full-logo-white.svg';
-
+import SpotifyIcon from '../../assets/spotify-icon-white.svg';
 import './navbar.css';
+
+interface INavbarProps {
+  token: string | null;
+  authUrl: string;
+  user: IUser;
+  logout: () => void;
+  clickLink: (event: React.MouseEvent, url: string) => void;
+}
 
 const Navbar: React.FC<INavbarProps> = ({ token, authUrl, user, logout, clickLink }) => {
   return (

@@ -1,7 +1,12 @@
 import React from 'react';
-import { ISimpleAlbumProps } from '../../../code-files/helpers/interfaces/propsInterfaces';
+import { ISimpleAlbum } from '../../../code-files/interfaces';
 
 import '../albums.css';
+
+interface ISimpleAlbumProps {
+  album: ISimpleAlbum;
+  clickLink: (event: React.MouseEvent, url: string) => void;
+}
 
 const SimpleAlbum: React.FC<ISimpleAlbumProps> = ({ album, clickLink }) => {
   const albumUrl: string = `/album/${album.id}`

@@ -1,7 +1,7 @@
 import { getCredentials } from "../helpers/authenticator";
 import { mapAlbum } from "../helpers/apiMappers";
 
-import { IAlbum } from "../helpers/interfaces/objectInterfaces";
+import { IAlbum } from "../interfaces";
 
 import { makeGetRequest } from "./defaults";
 

@@ -2,7 +2,7 @@ import { getCredentials } from "../helpers/authenticator";
 import { mapPlaylist } from "../helpers/apiMappers";
 import { getTrackList } from "./track";
 
-import { IPlaylist, IPlaylistTracks } from "../helpers/interfaces/objectInterfaces";
+import { IPlaylist, IPlaylistTracks } from "../interfaces";
 
 import { makeGetRequest } from "./defaults";
 

@@ -1,9 +1,16 @@
 import React from 'react';
 
-import { IArtistsProps } from '../../code-files/helpers/interfaces/propsInterfaces';
+import { IArtistList } from '../../code-files/interfaces';
 import { SimpleArtist } from '../../components';
 
 import './artists.css';
+
+interface IArtistsProps {
+  artists: IArtistList;
+  responsive: boolean;
+  maxArtists: number;
+  clickLink: (event: React.MouseEvent, url: string) => void;
+}
 
 const Artists: React.FC<IArtistsProps> = ({ artists, responsive, maxArtists, clickLink }) => {
   return (

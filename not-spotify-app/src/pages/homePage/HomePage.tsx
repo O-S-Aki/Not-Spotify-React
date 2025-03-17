@@ -3,7 +3,7 @@ import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 
-import { IPageProps } from "../../code-files/helpers/interfaces/propsInterfaces";
+import { IPageProps } from "../../App";
 import { getDominantColor } from '../../code-files/helpers/colorPalette';
 
 import './homePage.css';

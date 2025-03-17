@@ -8,3 +8,23 @@
   border-radius: 50%;
 }
 
+.search-field .input-group {
+  background-color: var(--light-gray);
+  border-radius: 20px;
+}
+
+.search-field i {
+  font-size: 1.25rem;
+}
+
+.search-field input {
+  background-color: transparent;
+  color: var(--white);
+  border: none;
+}
+
+.search-field input:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: inherit;
+}

@@ -2,9 +2,14 @@ import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { INavbarDropdownProps } from '../../../code-files/helpers/interfaces/propsInterfaces';
+import { IUser } from '../../../code-files/interfaces';
 
 import '../navbar.css'
+
+interface INavbarDropdownProps {
+  logout: () => void;
+  user: IUser;
+}
 
 const NavbarDropdown: React.FC<INavbarDropdownProps> = ({ user, logout }) => {
 

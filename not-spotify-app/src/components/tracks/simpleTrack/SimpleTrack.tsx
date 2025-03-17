@@ -1,7 +1,17 @@
 import React from 'react';
-import { ISimpleTrackProps } from '../../../code-files/helpers/interfaces/propsInterfaces';
+
+import { ISimpleTrack } from '../../../code-files/interfaces';
 
 import '../tracks.css';
+
+interface ISimpleTrackProps {
+  track: ISimpleTrack;
+  index: number;
+  showImage: boolean;
+  showAlbum: boolean; 
+  showDate: boolean;
+  clickLink: (event: React.MouseEvent, url: string) => void;
+}
 
 const SimpleTrack: React.FC<ISimpleTrackProps> = ({ track, index, showImage, showAlbum, showDate, clickLink }) => {    
   const trackURL: string = `/track/${track.id}`;

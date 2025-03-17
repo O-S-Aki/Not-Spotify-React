@@ -1,7 +1,13 @@
 import React from 'react';
-import { ISimplePlaylistProps } from '../../../code-files/helpers/interfaces/propsInterfaces';
+import { ISimplePlaylist } from '../../../code-files/interfaces';
 
 import '../playlists.css';
+
+interface ISimplePlaylistProps {
+  playlist: ISimplePlaylist;
+  responsive: boolean;
+  clickLink: (event: React.MouseEvent, url: string) => void;
+}
 
 const SimplePlaylist: React.FC<ISimplePlaylistProps> = ({ playlist, responsive, clickLink }) => {
   const playlistURL: string = `/playlist/${playlist.id}`;

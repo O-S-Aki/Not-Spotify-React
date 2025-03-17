@@ -1,4 +1,4 @@
-import { ITime } from "./interfaces/objectInterfaces";
+import { ITime } from "../interfaces";
 
 import { format, formatDistanceToNow, isToday, isYesterday } from 'date-fns';
 

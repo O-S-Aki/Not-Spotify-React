@@ -1,13 +1,13 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-import { IPageProps } from '../../code-files/helpers/interfaces/propsInterfaces';
-import { IArtistList, IPlaylistList, ITrackList, IUser } from '../../code-files/helpers/interfaces/objectInterfaces';
+import { IPageProps } from "../../App";
 
 import { getDominantColor } from '../../code-files/helpers/colorPalette';
 import { getUserProfile, getTopArtists, getTopTracks, getPublicPlaylists } from '../../code-files/api-calls/user';
 
 import { Artists, Tracks, Playlists } from '../../components'
+import { IArtistList, IPlaylistList, ITrackList, IUser } from '../../code-files/interfaces';
 
 import './userPage.css';
 

@@ -3,16 +3,19 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { IPageProps } from '../../../code-files/helpers/interfaces/propsInterfaces';
-import { IPlaylistList } from '../../../code-files/helpers/interfaces/objectInterfaces';
-
 import { getAllPublicPlaylists } from '../../../code-files/api-calls/user';
 
+import { IPlaylistList } from '../../../code-files/interfaces';
 import { Playlists } from '../../../components'
 
 import '../playlists.css';
 
-const PlaylistGrid: React.FC<IPageProps> = ({ token, clickLink }) => {
+interface IPlaylistGridProps {
+  token: string | null;
+  clickLink: (event: React.MouseEvent, url: string) => void;
+}
+
+const PlaylistGrid: React.FC<IPlaylistGridProps> = ({ token, clickLink }) => {
   const {id} = useParams();
   const [accessToken, setAccessToken] = useState<string | null>(token || localStorage.getItem("spotify_access_token"));
   const [playlists, setPlaylists] = useState<IPlaylistList | null>(null);
@@ -35,7 +38,6 @@ const PlaylistGrid: React.FC<IPageProps> = ({ token, clickLink }) => {
   return (
     <>
     {
-      /* Must add the cardClass property to the Playlists component and the SimplePlaylist compoent to stop the responsive-card class rendering */
       playlists ? (
         <>
           <div className="app-page">

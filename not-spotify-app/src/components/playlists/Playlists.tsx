@@ -1,8 +1,15 @@
 import React from 'react';
-import { IPlaylistsProps } from '../../code-files/helpers/interfaces/propsInterfaces';
+import { IPlaylistList } from '../../code-files/interfaces/';
 import { SimplePlaylist } from '../../components';
 
 import './playlists.css';
+
+interface IPlaylistsProps {
+  playlists: IPlaylistList;
+  responsive: boolean;
+  maxPlaylists: number;
+  clickLink: (event: React.MouseEvent, url: string) => void;
+}
 
 const Playlists: React.FC<IPlaylistsProps> = ({ playlists, responsive, maxPlaylists, clickLink }) => {
   return (

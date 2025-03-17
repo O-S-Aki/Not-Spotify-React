@@ -2,16 +2,19 @@ import React from 'react';
 
 import { useState, useEffect } from 'react';
 
-import { IPageProps } from '../../../code-files/helpers/interfaces/propsInterfaces';
-import { ITrackList } from '../../../code-files/helpers/interfaces/objectInterfaces';
-
 import { getAllTopTracks } from '../../../code-files/api-calls/user';
 
+import { ITrackList } from '../../../code-files/interfaces';
 import { Tracks } from '../../../components'
 
 import '../tracks.css';
 
-const TracksGrid: React.FC<IPageProps> = ({ token, clickLink }) => {
+interface ITracksGridProps {
+  token: string | null;
+  clickLink: (event: React.MouseEvent, url: string) => void;
+}
+
+const TracksGrid: React.FC<ITracksGridProps> = ({ token, clickLink }) => {
   const [accessToken, setAccessToken] = useState<string | null>(token || localStorage.getItem("spotify_access_token"));
   const [tracks, setTracks] = useState<ITrackList | null>(null);
 

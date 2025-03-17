@@ -1,9 +1,11 @@
-import { IUser, ISimpleUser } from "./interfaces/objectInterfaces";
-import { IArtist, ISimpleArtist, IArtistList } from "./interfaces/objectInterfaces";
-import { IAlbum, ISimpleAlbum, IAlbumList } from "./interfaces/objectInterfaces";
-import { ITrack, ISimpleTrack, ITrackList } from "./interfaces/objectInterfaces";
-import { IPlaylist, ISimplePlaylist, IPlaylistList } from "./interfaces/objectInterfaces";
-import { capitalizeFirst, formatReleaseDate, formatAddedAtDate, formatDuration, getTotalDuration, getYear } from "./miscHelpers";
+import { IUser, ISimpleUser,
+  IArtist, ISimpleArtist, IArtistList,
+  IAlbum, ISimpleAlbum, IAlbumList,
+  ITrack, ISimpleTrack, ITrackList,
+  IPlaylist, ISimplePlaylist, IPlaylistList } from "../interfaces";
+
+import { capitalizeFirst, formatReleaseDate, formatAddedAtDate, 
+  formatDuration, getTotalDuration, getYear } from "./miscHelpers";
 
 /* --------------- USER --------------- */
 

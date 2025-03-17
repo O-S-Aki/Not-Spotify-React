@@ -3,18 +3,22 @@ import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 
-import { ITabbedPageProps } from "../../code-files/helpers/interfaces/propsInterfaces";
 import { getDominantColor } from '../../code-files/helpers/colorPalette';
-import { IAlbumList, IArtist, ITrackList } from "../../code-files/helpers/interfaces/objectInterfaces";
-
 import { getArtistProfile, getPopularTracks, getFullDiscography, 
   getAlbums, getSingles } from "../../code-files/api-calls/artist";
 
 import { Popularity, Tracks, Albums } from '../../components';
+import { IAlbumList, IArtist, ITrackList } from "../../code-files/interfaces";
 
 import './artistPage.css';
 
-const ArtistPage: React.FC<ITabbedPageProps> = ({ token, clickLink, updateElementClasses }) => {
+interface IArtistPageProps {
+  token: string | null;
+  clickLink: (event: React.MouseEvent, url: string) => void;
+  updateElementClasses: (element: HTMLElement | null, add: boolean, classes: string[]) => void;
+}
+
+const ArtistPage: React.FC<IArtistPageProps> = ({ token, clickLink, updateElementClasses }) => {
   const {id} = useParams();
   const accessToken = token || localStorage.getItem("spotify_access_token");
   

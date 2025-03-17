@@ -1,6 +1,6 @@
 import { getCredentials } from "../helpers/authenticator";
 import { mapArtistList, mapPlaylistList, mapTrackList, mapUser } from "../helpers/apiMappers";
-import { IArtistList, IPlaylistList, ITrackList, IUser } from "../helpers/interfaces/objectInterfaces";
+import { IArtistList, IPlaylistList, ITrackList, IUser } from "../interfaces";
 
 import { makeGetRequest } from "./defaults";
 import { getTotal } from "../helpers/miscHelpers";

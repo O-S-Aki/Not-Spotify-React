@@ -1,7 +1,11 @@
 import React from 'react';
-import { ITracksHeadProps } from '../../../code-files/helpers/interfaces/propsInterfaces';
 
 import '../tracks.css';
+
+interface ITracksHeadProps {
+  showAlbum: boolean; 
+  showDate: boolean;
+}
 
 const TracksHead: React.FC<ITracksHeadProps> = ({ showAlbum, showDate }) => {
   return (

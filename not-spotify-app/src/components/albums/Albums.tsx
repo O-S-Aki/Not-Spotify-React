@@ -1,8 +1,14 @@
 import React from 'react';
-import { IAlbumsProps } from '../../code-files/helpers/interfaces/propsInterfaces';
+import { IAlbumList } from '../../code-files/interfaces/';
 import { SimpleAlbum } from '../../components';
 
 import './albums.css';
+
+interface IAlbumsProps {
+  albums: IAlbumList;
+  maxAlbums: number;
+  clickLink: (event: React.MouseEvent, url: string) => void;
+}
 
 const Albums: React.FC<IAlbumsProps> = ({ albums, maxAlbums, clickLink }) => {
   return (

@@ -1,7 +1,24 @@
 import React from "react";
-import { IHeaderPanelProps } from "../../code-files/helpers/interfaces/propsInterfaces";
 
 import './headerPanel.css';
+
+interface IHeaderPanelProps {
+  primary: {
+    name: string;
+    image: string;
+    type: string;
+  };
+  secondary: {
+    isArtist: boolean;
+    id: string;
+    name: string;
+    image: string;
+  };
+  dominantColorRgb: string;
+  description: string | null;
+  extras: string[]; 
+  clickLink: (event: React.MouseEvent, url: string) => void;
+}
 
 const HeaderPanel: React.FC<IHeaderPanelProps> = ({ primary, secondary, dominantColorRgb, description, extras, clickLink }) => {
   const artistUrl = `/artist/${secondary.id}`;

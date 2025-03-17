@@ -1,17 +1,19 @@
 import React from 'react';
-
 import { useState, useEffect } from 'react';
-
-import { IPageProps } from '../../../code-files/helpers/interfaces/propsInterfaces';
-import { IArtistList } from '../../../code-files/helpers/interfaces/objectInterfaces';
 
 import { getAllTopArtists } from '../../../code-files/api-calls/user';
 
+import { IArtistList } from '../../../code-files/interfaces';
 import { Artists } from '../../../components'
 
 import '../artists.css';
 
-const ArtistsGrid: React.FC<IPageProps> = ({ token, clickLink }) => {
+interface IArtistGridProps {
+  token: string | null;
+  clickLink: (event: React.MouseEvent, url: string) => void;
+}
+
+const ArtistsGrid: React.FC<IArtistGridProps> = ({ token, clickLink }) => {
   const [accessToken, setAccessToken] = useState<string | null>(token || localStorage.getItem("spotify_access_token"));
   const [artists, setArtists] = useState<IArtistList | null>(null);
 

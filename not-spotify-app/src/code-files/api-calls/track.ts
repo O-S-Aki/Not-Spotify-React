@@ -1,7 +1,7 @@
 import { getCredentials } from "../helpers/authenticator";
 import { mapTrack, mapTrackList } from "../helpers/apiMappers";
 
-import { IPlaylistTracks, ITrack, ITrackList } from "../helpers/interfaces/objectInterfaces";
+import { IPlaylistTracks, ITrack, ITrackList } from "../interfaces";
 
 import { makeGetRequest } from "./defaults";
 import { getTotalDuration } from "../helpers/miscHelpers";
@@ -42,5 +42,14 @@ export const getTrackList = async (accessToken: string, ids: string[]) => {
   catch (error) {
     console.error("Error fetching track list: ", error);
     return null;
+  }
+}
+
+export const isLiked = async (id: string) => {
+  try {
+
+  }
+  catch (error) {
+    console.error("Error checking track's liked status: ", error)
   }
 }

@@ -8,9 +8,14 @@ import { Navbar, ArtistsGrid, TracksGrid, PlaylistGrid } from './components';
 
 import { getAuthUrl } from './code-files/helpers/authenticator';
 import { getUserProfile } from './code-files/api-calls/user';
-import { IUser } from './code-files/helpers/interfaces/objectInterfaces';
+import { IUser } from './code-files/interfaces';
 
 import './App.css';
+
+export interface IPageProps {
+  token: string | null;
+  clickLink: (event: React.MouseEvent, url: string) => void;
+}
 
 const App = () => {
   const authUrl = getAuthUrl();

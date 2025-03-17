@@ -1,7 +1,13 @@
 import React from 'react';
-import { ISimpleArtistProps } from '../../../code-files/helpers/interfaces/propsInterfaces';
+import { ISimpleArtist } from '../../../code-files/interfaces';
 
 import '../artists.css';
+
+interface ISimpleArtistProps {
+  artist: ISimpleArtist;
+  responsive: boolean;
+  clickLink: (event: React.MouseEvent, url: string) => void;
+}
 
 const SimpleArtist: React.FC<ISimpleArtistProps> = ({ artist, responsive, clickLink }) => {
   const artistURL: string = `/artist/${artist.id}`;
