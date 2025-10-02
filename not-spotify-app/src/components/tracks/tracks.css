@@ -38,6 +38,10 @@
   visibility: visible;
 }
 
+.track-like-indicator {
+  font-size: larger;
+}
+
 .track-image-container {
   height: 3rem;
 }

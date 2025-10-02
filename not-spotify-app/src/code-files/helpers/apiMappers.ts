@@ -149,7 +149,8 @@ export const mapSimpleTrack = (fetchedTrack: any, parentAlbum?: ISimpleAlbum): I
     album: parentAlbum? parentAlbum : mapSimpleAlbum(trackObj.album),
     isExplicit: trackObj.explicit,
     duration: formatDuration(trackObj.duration_ms),
-    addedAt: fetchedTrack.added_at ? formatAddedAtDate(fetchedTrack.added_at) : null
+    addedAt: fetchedTrack.added_at ? formatAddedAtDate(fetchedTrack.added_at) : null,
+    liked: false,
   };
 
   return track;
@@ -169,6 +170,7 @@ export const mapTrack = (fetchedTrack: any): ITrack => {
     duration: formatDuration(fetchedTrack.duration_ms),
     addedAt: fetchedTrack.added_at ? formatAddedAtDate(fetchedTrack.added_at) : null,
     popularity: fetchedTrack.popularity,
+    liked: false,
   };
 
   return track;

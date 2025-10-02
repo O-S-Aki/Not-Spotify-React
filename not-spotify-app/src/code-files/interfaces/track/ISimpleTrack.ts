@@ -11,4 +11,5 @@ export default interface ISimpleTrack {
   isExplicit: boolean;
   duration: string;
   addedAt?: string | null;
+  liked: boolean;
 }

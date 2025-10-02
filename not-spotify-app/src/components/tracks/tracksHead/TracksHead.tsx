@@ -44,6 +44,11 @@ const TracksHead: React.FC<ITracksHeadProps> = ({ showAlbum, showDate }) => {
             )
           }
 
+          <th className="align-middle">
+            <div className="d-flex flex-row gap-3 align-middle">
+            </div>
+          </th>
+
           <th className="align-middle d-flex flex-row justify-content-end">
             <div className="d-flex flex-row justify-content-between align-items-center">
               <div className="d-flex flex-row gap-3 align-items-center">

@@ -4,7 +4,7 @@ import { getTrackList } from "./track";
 
 import { IPlaylist, IPlaylistTracks } from "../interfaces";
 
-import { makeGetRequest } from "./defaults";
+import { makeGetRequest } from "./sharedRequests";
 
 const baseUrl = getCredentials().BaseUrl;
 

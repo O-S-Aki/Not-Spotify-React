@@ -96,6 +96,22 @@ const SimpleTrack: React.FC<ISimpleTrackProps> = ({ track, index, showImage, sho
 
             <td className="align-middle">
               <div className="d-flex flex-row gap-3 align-items-center justify-content-end">
+                {
+                  track.liked ? (
+                    <>
+                      <i className="bi bi-heart-fill track-like-indicator"></i>
+                    </>
+                  ) : (
+                    <>
+                      <i className="bi bi-heart track-like-indicator"></i>
+                    </>
+                  )
+                }
+              </div>
+            </td>
+
+            <td className="align-middle">
+              <div className="d-flex flex-row gap-3 align-items-center justify-content-end">
                 <p className="m-0 translucent-text">{track.duration}</p>
                 <i className="bi bi-three-dots table-dots"></i>
               </div>

@@ -1,9 +1,9 @@
 import { getCredentials } from "../helpers/authenticator";
 import { mapTrack, mapTrackList } from "../helpers/apiMappers";
 
-import { IPlaylistTracks, ITrack, ITrackList } from "../interfaces";
+import { IPlaylistTracks, ISimpleTrack, ITrack, ITrackList } from "../interfaces";
 
-import { makeGetRequest } from "./defaults";
+import { makeGetRequest, getLikedStatuses } from "./sharedRequests";
 import { getTotalDuration } from "../helpers/miscHelpers";
 
 const baseUrl = getCredentials().BaseUrl;
@@ -16,6 +16,8 @@ export const getTrackDetails = async (accessToken: string, id: string) => {
     const fetchedTrack = response.data;
 
     const track: ITrack = mapTrack(fetchedTrack);
+    track.liked = (await checkTracksAreLiked(accessToken, [track.id]))[0];
+
     return track;
   }
   catch (error) {
@@ -35,7 +37,9 @@ export const getTrackList = async (accessToken: string, ids: string[]) => {
     const fetchedTracks = response.data;
 
     const tracks: ITrackList = mapTrackList(fetchedTracks.tracks);
+
     const duration: string = getTotalDuration(fetchedTracks.tracks);
+    tracks.items = await getLikedStatuses(tracks.items, accessToken);
 
     return {tracks, duration};
   }
@@ -45,11 +49,24 @@ export const getTrackList = async (accessToken: string, ids: string[]) => {
   }
 }
 
-export const isLiked = async (id: string) => {
-  try {
+// checking the liked statuses of a list of tracks (batch requests as the maximum number of ids is 50)
+export const checkTracksAreLiked = async (accessToken: string, ids: string[]) => {
+  const likedResults: (boolean)[] = [];
 
+  for (let i = 0; i < ids.length; i += 50) {
+    const idBatch: string[] = ids.slice(i, i + 50);
+
+    try {
+      const url = `${baseUrl}/me/tracks/contains?ids=${idBatch.join(",")}`;
+      const response = await makeGetRequest(url, accessToken);
+
+      const fetchedLikedResults: boolean[] = response.data;
+      likedResults.push(...fetchedLikedResults);
+    }
+    catch (error) {
+      console.error("Error checking liked status: ", error);
+    }
   }
-  catch (error) {
-    console.error("Error checking track's liked status: ", error)
-  }
+
+  return likedResults;
 }
