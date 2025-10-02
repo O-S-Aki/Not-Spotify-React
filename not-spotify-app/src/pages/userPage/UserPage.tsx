@@ -47,7 +47,7 @@ const UserPage: React.FC<IPageProps> = ({ token, clickLink }) => {
           }
 
           // fetching the user's public playlists
-          const playlists: IPlaylistList | null =  await getPublicPlaylists(accessToken, userProfile.primary.id);
+          const playlists: IPlaylistList | null =  await getPublicPlaylists(accessToken, userProfile.id);
           if (playlists) {
             setPublicPlaylists(playlists);
           }
@@ -73,7 +73,7 @@ const UserPage: React.FC<IPageProps> = ({ token, clickLink }) => {
 
               <div className="profile-description d-flex flex-column justify-content-center">
                 <p className="translucent-text m-0">Profile</p>
-                <p className="display-name mb-1">{user.primary.displayName}</p>
+                <p className="display-name mb-1">{user.displayName}</p>
                 <p className="m-0">
                   <span className="translucent-text">{publicPlaylists.total} Public Playlists</span>
                   <i className="bi bi-dot"></i>
@@ -105,7 +105,7 @@ const UserPage: React.FC<IPageProps> = ({ token, clickLink }) => {
             <div className="container playlists-container section-container mt-3 p-4 d-flex flex-column">
               <div className="d-flex flex-row justify-content-between">
                 <h5 className="m-0 section-header">Public Playlists</h5>
-                <p onClick={(e) => clickLink(e, `user/${user.primary.id}/public-playlists`)} className="m-0 translucent-text page-link"><strong>Show all</strong></p>
+                <p onClick={(e) => clickLink(e, `user/${user.id}/public-playlists`)} className="m-0 translucent-text page-link"><strong>Show all</strong></p>
               </div>
               <Playlists playlists={publicPlaylists} responsive={true} maxPlaylists={6} clickLink={clickLink} />
             </div>

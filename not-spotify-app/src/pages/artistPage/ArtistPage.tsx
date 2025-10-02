@@ -45,31 +45,31 @@ const ArtistPage: React.FC<IArtistPageProps> = ({ token, clickLink, updateElemen
           setArtist(artistProfile);
 
           // fetching the dominant colour to use as the background
-          getDominantColor(artistProfile.primary.image)
+          getDominantColor(artistProfile.image)
             .then((rgb) => setDominantColorRgb(rgb))
             .catch((err) => console.error("Error getting dominant color:", err));
 
           // fetching the artist's popular tracks
-          const artistTracks = await getPopularTracks(accessToken, artistProfile.primary.id);
+          const artistTracks = await getPopularTracks(accessToken, artistProfile.id);
           if (artistTracks) {
             setPopularTracks(artistTracks);
           }
           
           // fetching the artist's full discography
-          const artistDiscography = await getFullDiscography(accessToken, artistProfile.primary.id);
+          const artistDiscography = await getFullDiscography(accessToken, artistProfile.id);
           if (artistDiscography) {
             setDiscography(artistDiscography);
             setActiveTab(<Albums albums={artistDiscography} maxAlbums={6} clickLink={clickLink} />)
           }
 
           // fetching the artist's albums only
-          const artistAlbums = await getAlbums(accessToken, artistProfile.primary.id);
+          const artistAlbums = await getAlbums(accessToken, artistProfile.id);
           if (artistAlbums) {
             setAlbums(artistAlbums);
           }
 
           // fetching the artist's singles only
-          const artistSingles = await getSingles(accessToken, artistProfile.primary.id);
+          const artistSingles = await getSingles(accessToken, artistProfile.id);
           if (artistSingles) {
             setSingles(artistSingles);
           }
@@ -112,7 +112,7 @@ const ArtistPage: React.FC<IArtistPageProps> = ({ token, clickLink, updateElemen
                     <></>
                   )
                 }
-                <p className="artist-display-name mb-1">{artist.primary.name}</p>
+                <p className="artist-display-name mb-1">{artist.name}</p>
                 <h5>{artist.followers.toLocaleString()} Followers</h5>
                 <Popularity score={artist.popularity} />
                 
@@ -124,7 +124,7 @@ const ArtistPage: React.FC<IArtistPageProps> = ({ token, clickLink, updateElemen
 
               <div className="col col-12 col-lg-6 order-0 order-lg-1 d-flex flex-column justify-content-end">
                 <div className="artist-profile-image-container faded-image-container square-container w-100">
-                  <img src={artist.primary.image} alt={artist.primary.name} className="w-100 square" />
+                  <img src={artist.image} alt={artist.name} className="w-100 square" />
                 </div>
               </div>
             </div>

@@ -33,7 +33,7 @@ const AlbumPage: React.FC<IPageProps> = ({ token, clickLink }) => {
           setAlbum(albumDetails);
 
           // fetching the dominant colour to use as the background
-          getDominantColor(albumDetails.primary.image)
+          getDominantColor(albumDetails.image)
             .then((rgb) => setDominantColorRgb(rgb))
             .catch((err) => console.error("Error getting dominant color:", err));
 
@@ -43,7 +43,7 @@ const AlbumPage: React.FC<IPageProps> = ({ token, clickLink }) => {
             setLeadArtist(artist);
 
             // fetching the lead artist's popular releases
-            const artistDiscography = await getFullDiscography(accessToken, artist.primary.id);
+            const artistDiscography = await getFullDiscography(accessToken, artist.id);
             if (artistDiscography) {
               setDiscography(artistDiscography);
             }
@@ -62,9 +62,9 @@ const AlbumPage: React.FC<IPageProps> = ({ token, clickLink }) => {
         <>
           <div className="app-page">
 
-            <HeaderPanel primary={{name: album.primary.name, image: album.primary.image, type: album.primary.type}}
-              secondary={{isArtist: true, name: leadArtist.primary.name, image: leadArtist.primary.image, id: leadArtist.primary.id}}
-              extras={[album.primary.releaseYear, `${album.tracks.total} songs`, album.duration]}
+            <HeaderPanel primary={{name: album.name, image: album.image, type: album.type}}
+              secondary={{isArtist: true, name: leadArtist.name, image: leadArtist.image, id: leadArtist.id}}
+              extras={[album.releaseYear, `${album.tracks.total} songs`, album.duration]}
               dominantColorRgb={dominantColorRgb} description={null} clickLink={clickLink}
             />
 
@@ -81,7 +81,7 @@ const AlbumPage: React.FC<IPageProps> = ({ token, clickLink }) => {
             </div>
 
             <div className="container section-container mt-3 p-4 d-flex flex-column">
-              <h5 className="m-0 section-header">More by {leadArtist.primary.name}</h5>
+              <h5 className="m-0 section-header">More by {leadArtist.name}</h5>
               <div className="mt-3">
                 <Albums albums={discography} maxAlbums={6} clickLink={clickLink} />
               </div>

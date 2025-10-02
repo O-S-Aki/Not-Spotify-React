@@ -31,12 +31,12 @@ const PlaylistPage: React.FC<IPageProps> = ({ token, clickLink }) => {
           setPlaylist(playlistDetails);
 
           // fetching the dominant colour to use as the background
-          getDominantColor(playlistDetails.primary.image)
+          getDominantColor(playlistDetails.image)
             .then((rgb) => setDominantColorRgb(rgb))
             .catch((err) => console.error("Error getting dominant color:", err));
 
           // fetching the profile of the playlist owner
-          const userProfile: IUser | null = await getUser(accessToken, playlistDetails.primary.owner.id);
+          const userProfile: IUser | null = await getUser(accessToken, playlistDetails.owner.id);
           if (userProfile) {
             setPlaylistOwner(userProfile);
           }
@@ -53,8 +53,8 @@ const PlaylistPage: React.FC<IPageProps> = ({ token, clickLink }) => {
       playlist && dominantColorRgb && playlistOwner ? (
         <>
           <div className="app-page">
-            <HeaderPanel primary={{name: playlist.primary.name, image: playlist.primary.image, type: playlist.primary.type}}
-              secondary={{isArtist: false, name: playlist.primary.owner.displayName, image: playlistOwner.image, id: playlistOwner.primary.id}}
+            <HeaderPanel primary={{name: playlist.name, image: playlist.image, type: playlist.type}}
+              secondary={{isArtist: false, name: playlist.owner.displayName, image: playlistOwner.image, id: playlistOwner.id}}
               extras={[`${playlist.tracks.total} songs`, playlist.duration]}
               dominantColorRgb={dominantColorRgb} description={playlist.description}  clickLink={clickLink}
             />
