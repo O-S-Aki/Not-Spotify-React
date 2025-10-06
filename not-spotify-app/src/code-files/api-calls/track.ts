@@ -3,8 +3,8 @@ import { mapTrack, mapTrackList } from "../helpers/apiMappers";
 
 import { IPlaylistTracks, ISimpleTrack, ITrack, ITrackList } from "../interfaces";
 
-import { makeGetRequest, getLikedStatuses } from "./sharedRequests";
-import { getTotalDuration } from "../helpers/miscHelpers";
+import { makeGetRequest, getLikedStatuses, makePutRequest, makeDeleteRequest } from "./sharedRequests";
+import { getTotalDuration, getTimeStamp } from "../helpers/miscHelpers";
 
 const baseUrl = getCredentials().BaseUrl;
 
@@ -69,4 +69,42 @@ export const checkTracksAreLiked = async (accessToken: string, ids: string[]) =>
   }
 
   return likedResults;
+}
+
+// saving a number of tracks to the current user's liked songs
+export const saveTracksToLiked = async (accessToken: string, ids: string[]) => {
+  let response;
+
+  for (let i = 0; i < ids.length; i += 50) {
+    const idBatch: string[] = ids.slice(i, i + 50);
+
+    try {
+      const url = `${baseUrl}/me/tracks?ids=${idBatch.join(",")}`;
+      response = await makePutRequest(url, null, accessToken);
+    }
+    catch (error) {
+      console.error("Error saving track(s) to liked: ", error);
+    }
+  }
+
+  return response?.status == 200;
+}
+
+// removing a number of tracks from the current user's liked songs
+export const removeTracksFromLiked = async (accessToken: string, ids: string[]) => {
+  let response;
+
+  for (let i = 0; i < ids.length; i += 50) {
+    const idBatch: string[] = ids.slice(i, i + 50);
+
+    try {
+      const url = `${baseUrl}/me/tracks?ids=${idBatch.join(",")}`;
+      response = await makeDeleteRequest(url, null, accessToken);
+    }
+    catch (error) {
+      console.error("Error removing track(s) from liked: ", error);
+    }
+  }
+
+  return response?.status == 200;
 }

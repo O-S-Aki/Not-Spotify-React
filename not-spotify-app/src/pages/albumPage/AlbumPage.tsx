@@ -71,11 +71,11 @@ const AlbumPage: React.FC<IPageProps> = ({ token, clickLink }) => {
             <div className="container section-container px-4 py-2">
               <PlayControls />
             </div>
-
+{/*
             <div className="container tracks-container section-container px-4 py-2 pb-1 d-flex flex-column">
               <Tracks tracks={album.tracks} maxTracks={album.tracks.total} showHead={true} showImage={false} showAlbum={false} showDate={false} clickLink={clickLink} />
             </div>
-
+*/}
             <div className="container section-container px-4 py-1">
               <p className="translucent-text m-0">{album.copyright}</p>
             </div>

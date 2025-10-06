@@ -2,6 +2,8 @@ import React from 'react';
 
 import { ISimpleTrack } from '../../../code-files/interfaces';
 
+import { saveTracksToLiked } from '../../../code-files/api-calls/track';
+
 import '../tracks.css';
 
 interface ISimpleTrackProps {
@@ -10,10 +12,13 @@ interface ISimpleTrackProps {
   showImage: boolean;
   showAlbum: boolean; 
   showDate: boolean;
+  isSelected: boolean;
+  onSelect: () => void;
+  onToggleLike: (trackId: string, isCurrentlyLiked: boolean) => void;
   clickLink: (event: React.MouseEvent, url: string) => void;
 }
 
-const SimpleTrack: React.FC<ISimpleTrackProps> = ({ track, index, showImage, showAlbum, showDate, clickLink }) => {    
+const SimpleTrack: React.FC<ISimpleTrackProps> = ({ track, index, showImage, showAlbum, showDate, isSelected, onSelect, onToggleLike, clickLink }) => {    
   const trackURL: string = `/track/${track.id}`;
   const albumURL: string = `/album/${track.album.id}`;
 
@@ -22,7 +27,7 @@ const SimpleTrack: React.FC<ISimpleTrackProps> = ({ track, index, showImage, sho
     {
       track ? (
         <>
-          <tr>
+          <tr className={`simple-track-row ${isSelected ? "selected" : ""}`} onClick={onSelect}>
 
             <td className="align-middle">
               <div className="d-flex flex-row gap-3 align-items-center">
@@ -99,11 +104,17 @@ const SimpleTrack: React.FC<ISimpleTrackProps> = ({ track, index, showImage, sho
                 {
                   track.liked ? (
                     <>
-                      <i className="bi bi-heart-fill track-like-indicator"></i>
+                      <i className="track-like-indicator bi bi-heart-fill liked" onClick={(e) => {
+                        e.stopPropagation();
+                        onToggleLike?.(track.id, track.liked);
+                      }}></i>
                     </>
                   ) : (
                     <>
-                      <i className="bi bi-heart track-like-indicator"></i>
+                      <i className="track-like-indicator bi bi-heart not-liked" onClick={(e) => {
+                        e.stopPropagation();
+                        onToggleLike?.(track.id, track.liked);
+                      }}></i>
                     </>
                   )
                 }
@@ -112,7 +123,7 @@ const SimpleTrack: React.FC<ISimpleTrackProps> = ({ track, index, showImage, sho
 
             <td className="align-middle">
               <div className="d-flex flex-row gap-3 align-items-center justify-content-end">
-                <p className="m-0 translucent-text">{track.duration}</p>
+                <p className="m-0 translucent-text track-duration">{track.duration}</p>
                 <i className="bi bi-three-dots table-dots"></i>
               </div>
             </td>

@@ -10,6 +10,8 @@ import { getArtistProfile, getPopularTracks, getFullDiscography,
 import { Popularity, Tracks, Albums } from '../../components';
 import { IAlbumList, IArtist, ITrackList } from "../../code-files/interfaces";
 
+import { saveTracksToLiked, removeTracksFromLiked } from "../../code-files/api-calls/track";
+
 import './artistPage.css';
 
 interface IArtistPageProps {
@@ -93,6 +95,44 @@ const ArtistPage: React.FC<IArtistPageProps> = ({ token, clickLink, updateElemen
       setActiveTab(<Albums albums={albumList[clickedTab]!} maxAlbums={6} clickLink={clickLink} />)
     }
   }
+
+  const handleToggleLike = async (trackId: string, isCurrentlyLiked: boolean) => {
+    if (!accessToken) {
+      return;
+    }
+    
+    let success: boolean | null = false;
+
+    try {
+      // make API call to update on backend
+
+      if (isCurrentlyLiked) {
+        success = await removeTracksFromLiked(accessToken, [trackId]);
+      }
+      else {
+        success = await saveTracksToLiked(accessToken, [trackId]);
+      }
+    }
+    catch (error) {
+      console.error(`Erorr updating liked status of track ${trackId}: `, error);
+    }
+
+    if (success) {
+      // render on page
+      setPopularTracks(previousTracks => {
+        if (!previousTracks) {
+          return previousTracks
+        }
+
+        return {
+          ...previousTracks,
+          items: previousTracks.items.map(track => 
+            track.id == trackId ? { ...track, liked: !isCurrentlyLiked } : track
+          ),
+        };
+      });
+    }
+  }
   
   return (
     <>
@@ -118,7 +158,7 @@ const ArtistPage: React.FC<IArtistPageProps> = ({ token, clickLink, updateElemen
                 
                 <div className="container tracks-container section-container mt-3 p-4 d-flex flex-column">
                   <h5 className="mb-3 section-header">Popular</h5>
-                  <Tracks tracks={popularTracks} maxTracks={5} showHead={false} showImage={true} showAlbum={false} showDate={false} clickLink={clickLink} />
+                  <Tracks tracks={popularTracks} maxTracks={5} showHead={false} showImage={true} showAlbum={false} showDate={false} onToggleLike={handleToggleLike} clickLink={clickLink} />
                 </div>
               </div>
 

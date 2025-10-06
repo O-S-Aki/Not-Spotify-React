@@ -78,6 +78,7 @@ const TrackPage: React.FC<IPageProps> = ({ token, clickLink }) => {
               <PlayControls />
             </div>
 
+            {/*
             <div className="container section-container px-4 py-2 d-flex flex-column">
               <p className="m-0 translucent-text">Popular Tracks by</p>
               <h5 className="m-0 section-header">{leadArtist.name}</h5>
@@ -85,7 +86,8 @@ const TrackPage: React.FC<IPageProps> = ({ token, clickLink }) => {
                 <Tracks tracks={popularTracks} maxTracks={5} showHead={false} showImage={true} showAlbum={true} showDate={false} clickLink={clickLink}/>
               </div>
             </div>
-
+            */}
+            
             <div className="container section-container p-4 d-flex flex-column">
               <p className="m-0 translucent-text">Popular Releases by</p>
               <h5 className="m-0 section-header">{leadArtist.name}</h5>

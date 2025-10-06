@@ -63,9 +63,11 @@ const PlaylistPage: React.FC<IPageProps> = ({ token, clickLink }) => {
               <PlayControls />
             </div>
 
+            {/*
             <div className="container tracks-container section-container p-4 pb-1 d-flex flex-column">
               <Tracks tracks={playlist.tracks} maxTracks={playlist.tracks.total} showHead={true} showImage={true} showAlbum={true} showDate={true} clickLink={clickLink} />
             </div>
+            */}
           </div>
         </>
       ) : (
