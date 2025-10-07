@@ -10,7 +10,7 @@ import { getArtistProfile, getPopularTracks, getFullDiscography,
 import { Popularity, Tracks, Albums } from '../../components';
 import { IAlbumList, IArtist, ITrackList } from "../../code-files/interfaces";
 
-import { saveTracksToLiked, removeTracksFromLiked } from "../../code-files/api-calls/track";
+import { useToggleLike } from "../../code-files/custom-hooks/useTrackLike";
 
 import './artistPage.css';
 
@@ -96,44 +96,8 @@ const ArtistPage: React.FC<IArtistPageProps> = ({ token, clickLink, updateElemen
     }
   }
 
-  const handleToggleLike = async (trackId: string, isCurrentlyLiked: boolean) => {
-    if (!accessToken) {
-      return;
-    }
-    
-    let success: boolean | null = false;
+  const { handleToggleLike } = useToggleLike(accessToken, setPopularTracks);
 
-    try {
-      // make API call to update on backend
-
-      if (isCurrentlyLiked) {
-        success = await removeTracksFromLiked(accessToken, [trackId]);
-      }
-      else {
-        success = await saveTracksToLiked(accessToken, [trackId]);
-      }
-    }
-    catch (error) {
-      console.error(`Erorr updating liked status of track ${trackId}: `, error);
-    }
-
-    if (success) {
-      // render on page
-      setPopularTracks(previousTracks => {
-        if (!previousTracks) {
-          return previousTracks
-        }
-
-        return {
-          ...previousTracks,
-          items: previousTracks.items.map(track => 
-            track.id == trackId ? { ...track, liked: !isCurrentlyLiked } : track
-          ),
-        };
-      });
-    }
-  }
-  
   return (
     <>
     {
