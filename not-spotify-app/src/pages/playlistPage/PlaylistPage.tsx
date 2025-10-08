@@ -9,11 +9,12 @@ import { getPlaylistDetails } from "../../code-files/api-calls/playlist";
 import { getUser } from "../../code-files/api-calls/user";
 import { getDominantColor } from '../../code-files/helpers/colorPalette';
 
-import { IPlaylist, IUser } from "../../code-files/interfaces";
+import { IPlaylist, ITrackList, IUser } from "../../code-files/interfaces";
 
 import { HeaderPanel, PlayControls, Tracks } from '../../components';
 
 import './playlistPage.css';
+import { useTrackLike } from "../../code-files/custom-hooks/useTrackLike";
 
 const PlaylistPage: React.FC<IPageProps> = ({ token, clickLink }) => {
   const {id} = useParams();
@@ -22,6 +23,8 @@ const PlaylistPage: React.FC<IPageProps> = ({ token, clickLink }) => {
   const [playlist, setPlaylist] = useState<IPlaylist | null>(null);
   const [playlistOwner, setPlaylistOwner] = useState<IUser | null>(null);
   const [dominantColorRgb, setDominantColorRgb] = useState<string>("");
+
+  const [playlistTracks, setPlaylistTracks] = useState<ITrackList | null>(null);
   
   useEffect(() => {
     const fetchPageInfo = async () => {
@@ -40,6 +43,12 @@ const PlaylistPage: React.FC<IPageProps> = ({ token, clickLink }) => {
           if (userProfile) {
             setPlaylistOwner(userProfile);
           }
+
+          // setting a copy of the playlist's tracks for better control over track-related features
+          const tracks: ITrackList | null = playlistDetails.tracks;
+          if (tracks) {
+            setPlaylistTracks(tracks);
+          }
         }
       }
     }
@@ -47,10 +56,12 @@ const PlaylistPage: React.FC<IPageProps> = ({ token, clickLink }) => {
     fetchPageInfo();
   }, [accessToken, id])
 
+  const { handleToggleLike } = useTrackLike(accessToken, setPlaylistTracks);
+
   return (
     <>
     {
-      playlist && dominantColorRgb && playlistOwner ? (
+      playlist && dominantColorRgb && playlistOwner && playlistTracks ? (
         <>
           <div className="app-page">
             <HeaderPanel primary={{name: playlist.name, image: playlist.image, type: playlist.type}}
@@ -60,14 +71,12 @@ const PlaylistPage: React.FC<IPageProps> = ({ token, clickLink }) => {
             />
 
             <div className="container px-4 py-2">
-              <PlayControls />
+              <PlayControls isTrack={false} />
             </div>
 
-            {/*
             <div className="container tracks-container section-container p-4 pb-1 d-flex flex-column">
-              <Tracks tracks={playlist.tracks} maxTracks={playlist.tracks.total} showHead={true} showImage={true} showAlbum={true} showDate={true} clickLink={clickLink} />
+              <Tracks tracks={playlistTracks} maxTracks={playlistTracks.total} showHead={true} showImage={true} showAlbum={true} showDate={true} onToggleLike={handleToggleLike} clickLink={clickLink} />
             </div>
-            */}
           </div>
         </>
       ) : (

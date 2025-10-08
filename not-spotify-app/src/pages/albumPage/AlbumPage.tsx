@@ -2,6 +2,7 @@ import React from "react";
 
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
+import { useTrackLike } from "../../code-files/custom-hooks/useTrackLike";
 
 import { IPageProps } from "../../App";
 
@@ -9,7 +10,7 @@ import { getAlbumDetails } from "../../code-files/api-calls/album";
 import { getArtistProfile, getFullDiscography } from "../../code-files/api-calls/artist";
 import { getDominantColor } from '../../code-files/helpers/colorPalette';
 
-import { IAlbum, IAlbumList, IArtist } from "../../code-files/interfaces";
+import { IAlbum, IAlbumList, IArtist, ITrackList } from "../../code-files/interfaces";
 
 import { Albums, HeaderPanel, PlayControls, Tracks } from '../../components';
 
@@ -24,6 +25,8 @@ const AlbumPage: React.FC<IPageProps> = ({ token, clickLink }) => {
   const [dominantColorRgb, setDominantColorRgb] = useState<string>("");
 
   const [discography, setDiscography] = useState<IAlbumList | null>(null);
+
+  const [albumTracks, setAlbumTracks] = useState<ITrackList | null>(null);
   
   useEffect(() => {
     const fetchPageInfo = async () => {
@@ -48,6 +51,12 @@ const AlbumPage: React.FC<IPageProps> = ({ token, clickLink }) => {
               setDiscography(artistDiscography);
             }
           }
+
+          // setting a copy of the album tracks for better control over track-related features
+          const tracks: ITrackList | null = albumDetails.tracks;
+          if (tracks) {
+            setAlbumTracks(tracks);
+          }
         }
       }
     }
@@ -55,10 +64,12 @@ const AlbumPage: React.FC<IPageProps> = ({ token, clickLink }) => {
     fetchPageInfo();
   }, [accessToken, id])
 
+  const { handleToggleLike } = useTrackLike(accessToken, setAlbumTracks);
+
   return (
     <>
     {
-      album && dominantColorRgb && leadArtist && discography ? (
+      album && dominantColorRgb && leadArtist && discography && albumTracks ? (
         <>
           <div className="app-page">
 
@@ -69,13 +80,13 @@ const AlbumPage: React.FC<IPageProps> = ({ token, clickLink }) => {
             />
 
             <div className="container section-container px-4 py-2">
-              <PlayControls />
+              <PlayControls isTrack={false} />
             </div>
-{/*
+
             <div className="container tracks-container section-container px-4 py-2 pb-1 d-flex flex-column">
-              <Tracks tracks={album.tracks} maxTracks={album.tracks.total} showHead={true} showImage={false} showAlbum={false} showDate={false} clickLink={clickLink} />
+              <Tracks tracks={albumTracks} maxTracks={albumTracks.total} showHead={true} showImage={false} showAlbum={false} showDate={false} onToggleLike={handleToggleLike} clickLink={clickLink} />
             </div>
-*/}
+
             <div className="container section-container px-4 py-1">
               <p className="translucent-text m-0">{album.copyright}</p>
             </div>

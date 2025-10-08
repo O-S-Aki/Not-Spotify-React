@@ -13,6 +13,7 @@ import { ITrack, IArtist, IAlbumList, ITrackList } from "../../code-files/interf
 import { Albums, HeaderPanel, PlayControls, Tracks } from '../../components';
 
 import './trackPage.css';
+import { useTrackLike } from "../../code-files/custom-hooks/useTrackLike";
 
 const TrackPage: React.FC<IPageProps> = ({ token, clickLink }) => {
   const {id} = useParams();
@@ -62,6 +63,9 @@ const TrackPage: React.FC<IPageProps> = ({ token, clickLink }) => {
     fetchPageInfo();
   }, [accessToken, id])
 
+  const { handleToggleLike } = useTrackLike(accessToken, setPopularTracks);
+  const { handleSingleToggleLike } = useTrackLike(accessToken, undefined, setTrack);
+
   return (
     <>
     {
@@ -75,18 +79,16 @@ const TrackPage: React.FC<IPageProps> = ({ token, clickLink }) => {
             />
 
             <div className="container section-container px-4 py-2">
-              <PlayControls />
+              <PlayControls isTrack={true} trackId={track.id} liked={track.liked} onToggleLike={handleSingleToggleLike} />
             </div>
 
-            {/*
             <div className="container section-container px-4 py-2 d-flex flex-column">
               <p className="m-0 translucent-text">Popular Tracks by</p>
               <h5 className="m-0 section-header">{leadArtist.name}</h5>
               <div className="mt-3">
-                <Tracks tracks={popularTracks} maxTracks={5} showHead={false} showImage={true} showAlbum={true} showDate={false} clickLink={clickLink}/>
+                <Tracks tracks={popularTracks} maxTracks={5} showHead={false} showImage={true} showAlbum={true} showDate={false} onToggleLike={handleToggleLike} clickLink={clickLink}/>
               </div>
             </div>
-            */}
             
             <div className="container section-container p-4 d-flex flex-column">
               <p className="m-0 translucent-text">Popular Releases by</p>

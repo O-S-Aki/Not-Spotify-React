@@ -2,8 +2,6 @@ import React from 'react';
 
 import { ISimpleTrack } from '../../../code-files/interfaces';
 
-import { saveTracksToLiked } from '../../../code-files/api-calls/track';
-
 import '../tracks.css';
 
 interface ISimpleTrackProps {

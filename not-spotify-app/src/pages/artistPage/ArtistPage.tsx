@@ -2,6 +2,7 @@ import React from "react";
 
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
+import { useTrackLike } from "../../code-files/custom-hooks/useTrackLike";
 
 import { getDominantColor } from '../../code-files/helpers/colorPalette';
 import { getArtistProfile, getPopularTracks, getFullDiscography, 
@@ -9,8 +10,6 @@ import { getArtistProfile, getPopularTracks, getFullDiscography,
 
 import { Popularity, Tracks, Albums } from '../../components';
 import { IAlbumList, IArtist, ITrackList } from "../../code-files/interfaces";
-
-import { useToggleLike } from "../../code-files/custom-hooks/useTrackLike";
 
 import './artistPage.css';
 
@@ -96,7 +95,7 @@ const ArtistPage: React.FC<IArtistPageProps> = ({ token, clickLink, updateElemen
     }
   }
 
-  const { handleToggleLike } = useToggleLike(accessToken, setPopularTracks);
+  const { handleToggleLike } = useTrackLike(accessToken, setPopularTracks);
 
   return (
     <>
