@@ -3,7 +3,7 @@ import { mapAlbum } from "../helpers/apiMappers";
 
 import { IAlbum } from "../interfaces";
 
-import { makeGetRequest } from "./defaults";
+import { makeGetRequest, getLikedStatuses } from "./sharedRequests";
 
 const baseUrl = getCredentials().BaseUrl;
 
@@ -15,6 +15,8 @@ export const getAlbumDetails = async (accessToken: string, id: string) => {
     const fetchedAlbum = response.data;
 
     const album: IAlbum = mapAlbum(fetchedAlbum);
+    album.tracks.items = await getLikedStatuses(album.tracks.items, accessToken);
+
     return album;
   }
   catch (error) {

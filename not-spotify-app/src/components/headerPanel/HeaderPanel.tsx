@@ -38,7 +38,7 @@ const HeaderPanel: React.FC<IHeaderPanelProps> = ({ primary, secondary, dominant
         <>
           {
             <div className="container summary-container row p-4" style={{
-              background: `linear-gradient(to bottom, ${dominantColorRgb}, #121212)`,
+              background: `linear-gradient(to bottom, ${dominantColorRgb}, #0a0a0a)`,
             }}>
               <div className="col col-12 mb-sm-4 mb-md-0 col-md-4 col-lg-3 p-2 header-panel-image-container">
                 <div className="w-75 d-flex justify-content-center mx-auto">

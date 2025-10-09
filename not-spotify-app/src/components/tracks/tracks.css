@@ -1,15 +1,15 @@
-.tracks-table tbody tr {
+.simple-track-row {
   background-color: var(--black);
-  cursor: pointer;
 }
 
-.tracks-table tbody tr:hover {
+.simple-track-row:hover,
+.simple-track-row.selected {
   background-color: var(--gray);
   opacity: 1;
   filter: brightness(1.1);
 }
 
-.tracks-table tbody tr:hover .translucent-text {
+.simple-track-row:hover .translucent-text {
   opacity: 1 !important;
 }
 
@@ -28,14 +28,33 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.tracks-table tr .table-dots {
+.simple-track-row .table-dots,
+.simple-track-row .not-liked {
   opacity: 0;
   visibility: hidden;
+  cursor: pointer;
 }
 
-.tracks-table tbody tr:hover .table-dots {
+.simple-track-row:hover .table-dots,
+.simple-track-row:hover .not-liked,
+.simple-track-row.selected .table-dots,
+.simple-track-row.selected .not-liked {
   opacity: 1;
   visibility: visible;
+}
+
+.track-duration {
+  cursor: default;
+}
+
+.track-like-indicator {
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.track-play {
+  cursor: pointer;
+  display: none;
 }
 
 .track-image-container {

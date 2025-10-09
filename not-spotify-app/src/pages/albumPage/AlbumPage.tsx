@@ -2,6 +2,7 @@ import React from "react";
 
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
+import { useTrackLike } from "../../code-files/custom-hooks/useTrackLike";
 
 import { IPageProps } from "../../App";
 
@@ -9,7 +10,7 @@ import { getAlbumDetails } from "../../code-files/api-calls/album";
 import { getArtistProfile, getFullDiscography } from "../../code-files/api-calls/artist";
 import { getDominantColor } from '../../code-files/helpers/colorPalette';
 
-import { IAlbum, IAlbumList, IArtist } from "../../code-files/interfaces";
+import { IAlbum, IAlbumList, IArtist, ITrackList } from "../../code-files/interfaces";
 
 import { Albums, HeaderPanel, PlayControls, Tracks } from '../../components';
 
@@ -24,6 +25,8 @@ const AlbumPage: React.FC<IPageProps> = ({ token, clickLink }) => {
   const [dominantColorRgb, setDominantColorRgb] = useState<string>("");
 
   const [discography, setDiscography] = useState<IAlbumList | null>(null);
+
+  const [albumTracks, setAlbumTracks] = useState<ITrackList | null>(null);
   
   useEffect(() => {
     const fetchPageInfo = async () => {
@@ -33,7 +36,7 @@ const AlbumPage: React.FC<IPageProps> = ({ token, clickLink }) => {
           setAlbum(albumDetails);
 
           // fetching the dominant colour to use as the background
-          getDominantColor(albumDetails.primary.image)
+          getDominantColor(albumDetails.image)
             .then((rgb) => setDominantColorRgb(rgb))
             .catch((err) => console.error("Error getting dominant color:", err));
 
@@ -43,10 +46,16 @@ const AlbumPage: React.FC<IPageProps> = ({ token, clickLink }) => {
             setLeadArtist(artist);
 
             // fetching the lead artist's popular releases
-            const artistDiscography = await getFullDiscography(accessToken, artist.primary.id);
+            const artistDiscography = await getFullDiscography(accessToken, artist.id);
             if (artistDiscography) {
               setDiscography(artistDiscography);
             }
+          }
+
+          // setting a copy of the album tracks for better control over track-related features
+          const tracks: ITrackList | null = albumDetails.tracks;
+          if (tracks) {
+            setAlbumTracks(tracks);
           }
         }
       }
@@ -55,25 +64,27 @@ const AlbumPage: React.FC<IPageProps> = ({ token, clickLink }) => {
     fetchPageInfo();
   }, [accessToken, id])
 
+  const { handleToggleLike } = useTrackLike(accessToken, setAlbumTracks);
+
   return (
     <>
     {
-      album && dominantColorRgb && leadArtist && discography ? (
+      album && dominantColorRgb && leadArtist && discography && albumTracks ? (
         <>
           <div className="app-page">
 
-            <HeaderPanel primary={{name: album.primary.name, image: album.primary.image, type: album.primary.type}}
-              secondary={{isArtist: true, name: leadArtist.primary.name, image: leadArtist.primary.image, id: leadArtist.primary.id}}
-              extras={[album.primary.releaseYear, `${album.tracks.total} songs`, album.duration]}
+            <HeaderPanel primary={{name: album.name, image: album.image, type: album.type}}
+              secondary={{isArtist: true, name: leadArtist.name, image: leadArtist.image, id: leadArtist.id}}
+              extras={[album.releaseYear, `${album.tracks.total} songs`, album.duration]}
               dominantColorRgb={dominantColorRgb} description={null} clickLink={clickLink}
             />
 
             <div className="container section-container px-4 py-2">
-              <PlayControls />
+              <PlayControls isTrack={false} />
             </div>
 
             <div className="container tracks-container section-container px-4 py-2 pb-1 d-flex flex-column">
-              <Tracks tracks={album.tracks} maxTracks={album.tracks.total} showHead={true} showImage={false} showAlbum={false} showDate={false} clickLink={clickLink} />
+              <Tracks tracks={albumTracks} maxTracks={albumTracks.total} showHead={true} showImage={false} showAlbum={false} showDate={false} onToggleLike={handleToggleLike} clickLink={clickLink} />
             </div>
 
             <div className="container section-container px-4 py-1">
@@ -81,7 +92,7 @@ const AlbumPage: React.FC<IPageProps> = ({ token, clickLink }) => {
             </div>
 
             <div className="container section-container mt-3 p-4 d-flex flex-column">
-              <h5 className="m-0 section-header">More by {leadArtist.primary.name}</h5>
+              <h5 className="m-0 section-header">More by {leadArtist.name}</h5>
               <div className="mt-3">
                 <Albums albums={discography} maxAlbums={6} clickLink={clickLink} />
               </div>

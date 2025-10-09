@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useTrackLike } from '../../code-files/custom-hooks/useTrackLike';
 
 import { IPageProps } from "../../App";
 
@@ -47,7 +48,7 @@ const UserPage: React.FC<IPageProps> = ({ token, clickLink }) => {
           }
 
           // fetching the user's public playlists
-          const playlists: IPlaylistList | null =  await getPublicPlaylists(accessToken, userProfile.primary.id);
+          const playlists: IPlaylistList | null =  await getPublicPlaylists(accessToken, userProfile.id);
           if (playlists) {
             setPublicPlaylists(playlists);
           }
@@ -58,6 +59,8 @@ const UserPage: React.FC<IPageProps> = ({ token, clickLink }) => {
     fetchPageInfo();
   }, [accessToken])
 
+  const { handleToggleLike } = useTrackLike(accessToken, setTopTracks);
+
   return (
     <>
     {
@@ -65,7 +68,7 @@ const UserPage: React.FC<IPageProps> = ({ token, clickLink }) => {
         <>
           <div className="app-page">
             <div className="container summary-container p-4 d-flex flex-row gap-3" style={{
-              background: `linear-gradient(to bottom, ${dominantColorRgb}, #121212)`,
+              background: `linear-gradient(to bottom, ${dominantColorRgb}, #0a0a0a)`,
             }}>
               <div className="profile-image-container square-container round">
                 <img src={user.image} alt="User profile" className='square round w-100' />
@@ -73,7 +76,7 @@ const UserPage: React.FC<IPageProps> = ({ token, clickLink }) => {
 
               <div className="profile-description d-flex flex-column justify-content-center">
                 <p className="translucent-text m-0">Profile</p>
-                <p className="display-name mb-1">{user.primary.displayName}</p>
+                <p className="display-name mb-1">{user.displayName}</p>
                 <p className="m-0">
                   <span className="translucent-text">{publicPlaylists.total} Public Playlists</span>
                   <i className="bi bi-dot"></i>
@@ -98,14 +101,14 @@ const UserPage: React.FC<IPageProps> = ({ token, clickLink }) => {
                 <p onClick={(e) => clickLink(e, 'user/top-tracks')} className="m-0 translucent-text page-link"><strong>Show all</strong></p>
               </div>
               <div className="mt-3">
-                <Tracks tracks={topTracks} maxTracks={5} showHead={false} showImage={true} showAlbum={true} showDate={false} clickLink={clickLink} />
+                <Tracks tracks={topTracks} maxTracks={5} showHead={false} showImage={true} showAlbum={true} showDate={false} onToggleLike={handleToggleLike} clickLink={clickLink} />
               </div>
             </div>
 
             <div className="container playlists-container section-container mt-3 p-4 d-flex flex-column">
               <div className="d-flex flex-row justify-content-between">
                 <h5 className="m-0 section-header">Public Playlists</h5>
-                <p onClick={(e) => clickLink(e, `user/${user.primary.id}/public-playlists`)} className="m-0 translucent-text page-link"><strong>Show all</strong></p>
+                <p onClick={(e) => clickLink(e, `user/${user.id}/public-playlists`)} className="m-0 translucent-text page-link"><strong>Show all</strong></p>
               </div>
               <Playlists playlists={publicPlaylists} responsive={true} maxPlaylists={6} clickLink={clickLink} />
             </div>

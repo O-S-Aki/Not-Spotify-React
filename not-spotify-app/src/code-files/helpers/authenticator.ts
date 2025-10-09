@@ -16,6 +16,7 @@ export const getCredentials = () => {
       'streaming',
       'app-remote-control',
       'user-top-read',
+      'user-library-modify'
     ].join('%20'),
   }
   return CREDENTIALS;

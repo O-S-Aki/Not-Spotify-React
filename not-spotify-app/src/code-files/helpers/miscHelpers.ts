@@ -2,6 +2,11 @@ import { ITime } from "../interfaces";
 
 import { format, formatDistanceToNow, isToday, isYesterday } from 'date-fns';
 
+// returns a timestamp of the current time
+export const getTimeStamp = (): string => {
+  return new Date().toISOString();
+}
+
 // gets the total number of items in a paged response
 export const getTotal = (response: any): number => {
   return response.total;

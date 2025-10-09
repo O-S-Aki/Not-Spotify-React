@@ -3,7 +3,7 @@ import { mapAlbumList, mapArtist, mapArtistList, mapTrackList } from "../helpers
 
 import { IAlbumList, IArtist, IArtistList, ITrackList } from "../interfaces";
 
-import { makeGetRequest } from "./defaults";
+import { makeGetRequest, getLikedStatuses } from "./sharedRequests";
 
 const baseUrl = getCredentials().BaseUrl;
 
@@ -31,6 +31,8 @@ export const getPopularTracks = async (accessToken: string, id: string) => {
     const fetchedTracks = response.data;
 
     const tracks: ITrackList = mapTrackList(fetchedTracks.tracks);
+    tracks.items = await getLikedStatuses(tracks.items, accessToken);
+
     return tracks;
   }
   catch (error) {

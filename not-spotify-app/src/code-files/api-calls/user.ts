@@ -2,7 +2,7 @@ import { getCredentials } from "../helpers/authenticator";
 import { mapArtistList, mapPlaylistList, mapTrackList, mapUser } from "../helpers/apiMappers";
 import { IArtistList, IPlaylistList, ITrackList, IUser } from "../interfaces";
 
-import { makeGetRequest } from "./defaults";
+import { makeGetRequest, getLikedStatuses } from "./sharedRequests";
 import { getTotal } from "../helpers/miscHelpers";
 
 const baseUrl = getCredentials().BaseUrl;
@@ -97,8 +97,10 @@ export const getTopTracks = async (accessToken: string, limit?: number | null) =
     const response = await makeGetRequest(url, accessToken);
     const fetchedTracks = response.data;
 
-    const trackList: ITrackList = mapTrackList(fetchedTracks);
-    return trackList;
+    const tracks: ITrackList = mapTrackList(fetchedTracks);
+    tracks.items = await getLikedStatuses(tracks.items, accessToken);
+
+    return tracks;
   }
   catch (error) {
     console.error("Error fetching user's top tracks: ", error);
